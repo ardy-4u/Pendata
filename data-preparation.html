@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Perkenalan &#8212; Pendata</title>
+    <title>Data Preparation &#8212; Pendata</title>
   
   
   
@@ -65,11 +65,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
-    <link rel="canonical" href="https://yogaandrian13.github.io/Pendata/intro.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data-preparation';</script>
+    <link rel="canonical" href="https://yogaandrian13.github.io/Pendata/data-preparation.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Business Understanding" href="business-understanding.html" />
+    <link rel="next" title="Modelling" href="modelling.html" />
+    <link rel="prev" title="Data Understanding" href="data-understanding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -132,8 +133,6 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -152,7 +151,7 @@ const thebe_selector_output = ".output, .cell_output"
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -172,16 +171,16 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Perkenalan
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="business-understanding.html">Business Understanding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data-preparation.html">Data Preparation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modelling.html">Modelling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploymen.html">Deployment</a></li>
 </ul>
@@ -238,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/data-preparation.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -322,7 +321,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Perkenalan</h1>
+    <h1>Data Preparation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -332,7 +331,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yoga-andrian-febriyanto">240411100167 Yoga Andrian Febriyanto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembersihan-data">3.1 Pembersihan Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-data">3.2 Transformasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">3.3 Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-dataset">3.4 Pembagian Dataset</a></li>
 </ul>
             </nav>
         </div>
@@ -344,14 +346,25 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="perkenalan">
-<h1>Perkenalan<a class="headerlink" href="#perkenalan" title="Permalink to this heading">#</a></h1>
-<section id="yoga-andrian-febriyanto">
-<h2>240411100167 Yoga Andrian Febriyanto<a class="headerlink" href="#yoga-andrian-febriyanto" title="Permalink to this heading">#</a></h2>
-<p>Selamat datang di Jupyter Book saya.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preparation">
+<h1>Data Preparation<a class="headerlink" href="#data-preparation" title="Permalink to this heading">#</a></h1>
+<p>Data Preparation adalah tahap mempersiapkan data agar siap digunakan untuk pemodelan. Tahap ini seringkali memakan waktu paling lama dalam proyek data mining (60-80% dari total waktu proyek).</p>
+<section id="pembersihan-data">
+<h2>3.1 Pembersihan Data<a class="headerlink" href="#pembersihan-data" title="Permalink to this heading">#</a></h2>
+<p>Handling missing values: Menghapus record yang memiliki missing values Mengisi dengan nilai mean/median/mode Imputasi menggunakan algoritma machine learning Outlier detection dan treatment: Mengidentifikasi nilai ekstrem Menggunakan metode IQR (Interquartile Range) atau Z-score Keputusan: menghapus atau mengganti dengan nilai yang lebih wajar.</p>
 </section>
-<div class="toctree-wrapper compound">
-</div>
+<section id="transformasi-data">
+<h2>3.2 Transformasi Data<a class="headerlink" href="#transformasi-data" title="Permalink to this heading">#</a></h2>
+<p>Normalisasi: Mengubah skala data ke range tertentu (misalnya 0-1) Standarisasi: Mengubah distribusi data menjadi normal Encoding variabel kategorikal: One-hot encoding Label encoding Feature scaling: Memastikan semua variabel memiliki skala yang sebanding.</p>
+</section>
+<section id="feature-engineering">
+<h2>3.3 Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this heading">#</a></h2>
+<p>Membuat variabel baru dari variabel yang sudah ada: Contoh: dari tanggal transaksi, dibuat variabel hari dalam minggu, bulan, atau apakah hari libur Agregasi data: Menggabungkan data dari berbagai tabel atau sumber Seleksi fitur: Memilih variabel yang paling relevan untuk pemodelan Menghapus variabel yang redundan atau tidak informatif.</p>
+</section>
+<section id="pembagian-dataset">
+<h2>3.4 Pembagian Dataset<a class="headerlink" href="#pembagian-dataset" title="Permalink to this heading">#</a></h2>
+<p>Train-test split: Membagi data menjadi data latih (70-80%) dan data uji (20-30%) Stratified sampling: Memastikan distribusi kelas tetap proporsional Cross-validation: Membagi data menjadi beberapa fold untuk validasi yang lebih robust.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -384,12 +397,21 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="data-understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="business-understanding.html"
+       href="modelling.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Business Understanding</p>
+        <p class="prev-next-title">Modelling</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -409,7 +431,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yoga-andrian-febriyanto">240411100167 Yoga Andrian Febriyanto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembersihan-data">3.1 Pembersihan Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-data">3.2 Transformasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">3.3 Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-dataset">3.4 Pembagian Dataset</a></li>
 </ul>
   </nav></div>
 
