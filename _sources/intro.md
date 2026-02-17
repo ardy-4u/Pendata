@@ -1,5 +1,5 @@
 # Perkenalan
 
-## 240411100167 Yoga Andrian Febriyanto
+## 240411100050 Moh. Yusuf Ardiansyah
 
 Selamat datang di Jupyter Book saya.
