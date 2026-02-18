@@ -1,6 +1,9 @@
 # Perkenalan
 
-## 240411100050 Moh. Yusuf Ardiansyah
+## Moh. Yusuf Ardiansyah
+## 240411100050
+## Github : ardy-4u
+## Email : aardyaansyaah123@gmail.com
 
 Selamat datang di Jupyter Book saya.
 
