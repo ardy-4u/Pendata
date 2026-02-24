@@ -410,46 +410,30 @@ Analisis dilakukan pada variabel sepal_length dari dataset Iris dengan jumlah da
 <section id="kode">
 <h3>Kode<a class="headerlink" href="#kode" title="Permalink to this heading">#</a></h3>
 <br>
-import pandas as pd
-<br>
-from scipy import stats
-<br>
-<br>
-df = pd.read_csv("/content/IRIS.csv")
-<br>
-<br>
-print("Daftar Kolom:", df.columns.tolist())
-<br>
-print("-" * 30)
-<br>
-<br>
-print("Jumlah data     :", df['sepal_length'].count())
-<br>
-print("Rata-rata       :", df['sepal_length'].mean())
-<br>
-print("Nilai minimal   :", df['sepal_length'].min())
-<br>
-print("Q1              :", df['sepal_length'].quantile(0.25))
-<br>
-print("Q2 (Median)     :", df['sepal_length'].quantile(0.5))
-<br>
-print("Q3              :", df['sepal_length'].quantile(0.75))
-<br>
-print("Nilai Max       :", df['sepal_length'].max())
-<br>
-print("Kemencengan 1   :", "{0:.2f}".format(round(df['sepal_length'].skew(), 2)))
-<br>
-print("Kemencengan 2   :", "{0:.6f}".format(round(df['sepal_length'].skew(), 6)))
-<br>
-print("Standar Deviasi :", "{0:.2f}".format(round(df['sepal_length'].std(), 2)))
-<br>
-print("Variansi        :", "{0:.2f}".format(round(df['sepal_length'].var(), 2)))
-<br>
-<br>
-mode = stats.mode(df['sepal_length'], keepdims=True)
-<br>
-print("Nilai modus {} dengan jumlah {}".format(mode.mode[0], mode.count[0]))
-<br>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">import</span><span class="w"> </span><span class="n">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pd</span>
+<span class="k">from</span><span class="w"> </span><span class="n">scipy</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">stats</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="ss">&quot;/content/IRIS.csv&quot;</span><span class="p">)</span>
+
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Daftar Kolom:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">columns</span><span class="p">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;-&quot;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">30</span><span class="p">)</span>
+
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Jumlah data     :&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="k">count</span><span class="p">())</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Rata-rata       :&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Nilai minimal   :&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="k">min</span><span class="p">())</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Q1              :&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">quantile</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">25</span><span class="p">))</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Q2 (Median)     :&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">quantile</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Q3              :&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">quantile</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">75</span><span class="p">))</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Nilai Max       :&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="k">max</span><span class="p">())</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Kemencengan 1   :&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;{0:.2f}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">skew</span><span class="p">(),</span><span class="w"> </span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Kemencengan 2   :&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;{0:.6f}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">skew</span><span class="p">(),</span><span class="w"> </span><span class="mi">6</span><span class="p">)))</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Standar Deviasi :&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;{0:.2f}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">std</span><span class="p">(),</span><span class="w"> </span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Variansi        :&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;{0:.2f}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">].</span><span class="n">var</span><span class="p">(),</span><span class="w"> </span><span class="mi">2</span><span class="p">)))</span>
+
+<span class="k">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="k">mode</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">],</span><span class="w"> </span><span class="n">keepdims</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Nilai modus {} dengan jumlah {}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="k">mode</span><span class="p">.</span><span class="k">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="k">mode</span><span class="p">.</span><span class="k">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
 </section>
 <section id="output">
 <h3>Output<a class="headerlink" href="#output" title="Permalink to this heading">#</a></h3>

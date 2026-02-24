@@ -53,46 +53,32 @@ Analisis dilakukan pada variabel sepal_length dari dataset Iris dengan jumlah da
 
 ### Kode
 <br>
+
+```sql
+
 import pandas as pd
-<br>
 from scipy import stats
-<br>
-<br>
+
 df = pd.read_csv("/content/IRIS.csv")
-<br>
-<br>
+
 print("Daftar Kolom:", df.columns.tolist())
-<br>
 print("-" * 30)
-<br>
-<br>
+
 print("Jumlah data     :", df['sepal_length'].count())
-<br>
 print("Rata-rata       :", df['sepal_length'].mean())
-<br>
 print("Nilai minimal   :", df['sepal_length'].min())
-<br>
 print("Q1              :", df['sepal_length'].quantile(0.25))
-<br>
 print("Q2 (Median)     :", df['sepal_length'].quantile(0.5))
-<br>
 print("Q3              :", df['sepal_length'].quantile(0.75))
-<br>
 print("Nilai Max       :", df['sepal_length'].max())
-<br>
 print("Kemencengan 1   :", "{0:.2f}".format(round(df['sepal_length'].skew(), 2)))
-<br>
 print("Kemencengan 2   :", "{0:.6f}".format(round(df['sepal_length'].skew(), 6)))
-<br>
 print("Standar Deviasi :", "{0:.2f}".format(round(df['sepal_length'].std(), 2)))
-<br>
 print("Variansi        :", "{0:.2f}".format(round(df['sepal_length'].var(), 2)))
-<br>
-<br>
+
 mode = stats.mode(df['sepal_length'], keepdims=True)
-<br>
 print("Nilai modus {} dengan jumlah {}".format(mode.mode[0], mode.count[0]))
-<br>
+```
 
 ### Output
 
