@@ -83,7 +83,7 @@ print("Nilai modus {} dengan jumlah {}".format(mode.mode[0], mode.count[0]))
 ### Output
 <br>
 
-```yaml
+```sql
 Daftar Kolom: ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
 ------------------------------
 Jumlah data     : 150
