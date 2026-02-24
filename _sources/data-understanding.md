@@ -81,29 +81,21 @@ print("Nilai modus {} dengan jumlah {}".format(mode.mode[0], mode.count[0]))
 ```
 
 ### Output
+<br>
 
+```yaml
 Daftar Kolom: ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
-<br>
+------------------------------
 Jumlah data     : 150
-<br>
 Rata-rata       : 5.843333333333334
-<br>
 Nilai minimal   : 4.3
-<br>
 Q1              : 5.1
-<br>
 Q2 (Median)     : 5.8
-<br>
 Q3              : 6.4
-<br>
 Nilai Max       : 7.9
-<br>
 Kemencengan 1   : 0.31
-<br>
 Kemencengan 2   : 0.314911
-<br>
 Standar Deviasi : 0.83
-<br>
 Variansi        : 0.69
-<br>
 Nilai modus 5.0 dengan jumlah 10
+```
