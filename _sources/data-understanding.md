@@ -41,3 +41,51 @@ Dari gambar di atas menunjukkan korelasi antara sepal_width dan petal_width lema
 ![Statistik dikriptif](iris7.jpg)
 <br>
 Berdasarkan tabel statistik deskriptif di atas, dataset Iris menunjukkan karakteristik yang menarik untuk setiap variabel pengukuran. Pada sepal_length, nilai rata-rata sebesar 5.84 cm sangat dekat dengan median 5.8 cm, mengindikasikan distribusi data yang relatif simetris dan terkonsentrasi di kisaran 5-6 cm dengan variasi yang kecil. Sementara itu, sepal_width memiliki mean 3.05 cm dengan median dan mode sama-sama bernilai 3 cm, menunjukkan bahwa lebar sepal cenderung homogen antar spesies dengan penyebaran data yang rapat. Berbeda dengan pengukuran sepal, variabel petal_length dan petal_width menunjukkan pola yang lebih kompleks. Nilai mode pada petal_length (1.5 cm) dan petal_width (0.2 cm) sangat berbeda dengan median masing-masing (4.35 cm dan 1.3 cm), yang mengindikasikan adanya distribusi bimodal atau dua kelompok data yang terpisah jelas. Hal ini diperkuat oleh nilai dispersi yang lebih tinggi pada petal_width (0.63) dibandingkan variabel lainnya, menunjukkan bahwa pengukuran petal memiliki variabilitas yang lebih besar dan lebih efektif untuk membedakan antar spesies.
+
+## Google Collab
+![Google Collab](collab.png)
+<br>
+
+### Kode
+import pandas as pd
+from scipy import stats
+
+df = pd.read_csv("/content/IRIS.csv")
+
+print("Daftar Kolom:", df.columns.tolist())
+print("-" * 30)
+
+print("Jumlah data     :", df['sepal_length'].count())
+print("Rata-rata       :", df['sepal_length'].mean())
+print("Nilai minimal   :", df['sepal_length'].min())
+print("Q1              :", df['sepal_length'].quantile(0.25))
+print("Q2 (Median)     :", df['sepal_length'].quantile(0.5))
+print("Q3              :", df['sepal_length'].quantile(0.75))
+print("Nilai Max       :", df['sepal_length'].max())
+print("Kemencengan 1   :", "{0:.2f}".format(round(df['sepal_length'].skew(), 2)))
+print("Kemencengan 2   :", "{0:.6f}".format(round(df['sepal_length'].skew(), 6)))
+print("Standar Deviasi :", "{0:.2f}".format(round(df['sepal_length'].std(), 2)))
+print("Variansi        :", "{0:.2f}".format(round(df['sepal_length'].var(), 2)))
+
+mode = stats.mode(df['sepal_length'], keepdims=True)
+print("Nilai modus {} dengan jumlah {}".format(mode.mode[0], mode.count[0]))
+
+### Output
+Daftar Kolom: ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
+------------------------------
+Jumlah data     : 150
+Rata-rata       : 5.843333333333334
+Nilai minimal   : 4.3
+Q1              : 5.1
+Q2 (Median)     : 5.8
+Q3              : 6.4
+Nilai Max       : 7.9
+Kemencengan 1   : 0.31
+Kemencengan 2   : 0.314911
+Standar Deviasi : 0.83
+Variansi        : 0.69
+Nilai modus 5.0 dengan jumlah 10
+
+<br>
+
+Analisis dilakukan pada variabel sepal_length dari dataset Iris dengan jumlah data sebanyak 150 observasi.Nilai rata-rata sebesar 5,84 dan median sebesar 5,8 menunjukkan bahwa distribusi data cukup seimbang, karena kedua nilai tersebut hampir sama. Nilai minimum adalah 4,3 dan maksimum 7,9, sehingga rentang data tergolong cukup luas.Kuartil pertama (Q1) sebesar 5,1 dan kuartil ketiga (Q3) sebesar 6,4 menunjukkan bahwa sebagian besar data berada dalam interval tersebut. Standar deviasi sebesar 0,83 menandakan bahwa penyebaran data tidak terlalu besar dan masih relatif stabil.Nilai skewness sebesar 0,31 menunjukkan distribusi sedikit condong ke kanan, tetapi tidak signifikan. Modus sebesar 5,0 dengan frekuensi 10 kali menunjukkan bahwa nilai tersebut paling sering muncul.Secara keseluruhan, distribusi panjang sepal cenderung stabil, relatif simetris, dan tidak menunjukkan adanya penyimpangan ekstrem yang berarti.
