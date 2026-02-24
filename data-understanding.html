@@ -343,7 +343,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-kolom-sepal-length-sepal-width-petal-length-petal-width-species">Daftar Kolom: [‘sepal_length’, ‘sepal_width’, ‘petal_length’, ‘petal_width’, ‘species’]</a></li>
 </ul>
             </nav>
         </div>
@@ -405,45 +404,78 @@ Berdasarkan tabel statistik deskriptif di atas, dataset Iris menunjukkan karakte
 <br></p>
 <section id="kode">
 <h3>Kode<a class="headerlink" href="#kode" title="Permalink to this heading">#</a></h3>
-<p>import pandas as pd
-from scipy import stats</p>
-<p>df = pd.read_csv(“/content/IRIS.csv”)</p>
-<p>print(“Daftar Kolom:”, df.columns.tolist())
-print(“-” * 30)</p>
-<p>print(“Jumlah data     :”, df[‘sepal_length’].count())
-print(“Rata-rata       :”, df[‘sepal_length’].mean())
-print(“Nilai minimal   :”, df[‘sepal_length’].min())
-print(“Q1              :”, df[‘sepal_length’].quantile(0.25))
-print(“Q2 (Median)     :”, df[‘sepal_length’].quantile(0.5))
-print(“Q3              :”, df[‘sepal_length’].quantile(0.75))
-print(“Nilai Max       :”, df[‘sepal_length’].max())
-print(“Kemencengan 1   :”, “{0:.2f}”.format(round(df[‘sepal_length’].skew(), 2)))
-print(“Kemencengan 2   :”, “{0:.6f}”.format(round(df[‘sepal_length’].skew(), 6)))
-print(“Standar Deviasi :”, “{0:.2f}”.format(round(df[‘sepal_length’].std(), 2)))
-print(“Variansi        :”, “{0:.2f}”.format(round(df[‘sepal_length’].var(), 2)))</p>
-<p>mode = stats.mode(df[‘sepal_length’], keepdims=True)
-print(“Nilai modus {} dengan jumlah {}”.format(mode.mode[0], mode.count[0]))</p>
+<br>
+import pandas as pd
+<br>
+from scipy import stats
+<br>
+<br>
+df = pd.read_csv("/content/IRIS.csv")
+<br>
+<br>
+print("Daftar Kolom:", df.columns.tolist())
+<br>
+print("-" * 30)
+<br>
+<br>
+print("Jumlah data     :", df['sepal_length'].count())
+<br>
+print("Rata-rata       :", df['sepal_length'].mean())
+<br>
+print("Nilai minimal   :", df['sepal_length'].min())
+<br>
+print("Q1              :", df['sepal_length'].quantile(0.25))
+<br>
+print("Q2 (Median)     :", df['sepal_length'].quantile(0.5))
+<br>
+print("Q3              :", df['sepal_length'].quantile(0.75))
+<br>
+print("Nilai Max       :", df['sepal_length'].max())
+<br>
+print("Kemencengan 1   :", "{0:.2f}".format(round(df['sepal_length'].skew(), 2)))
+<br>
+print("Kemencengan 2   :", "{0:.6f}".format(round(df['sepal_length'].skew(), 6)))
+<br>
+print("Standar Deviasi :", "{0:.2f}".format(round(df['sepal_length'].std(), 2)))
+<br>
+print("Variansi        :", "{0:.2f}".format(round(df['sepal_length'].var(), 2)))
+<br>
+<br>
+mode = stats.mode(df['sepal_length'], keepdims=True)
+<br>
+print("Nilai modus {} dengan jumlah {}".format(mode.mode[0], mode.count[0]))
+<br>
 </section>
 <section id="output">
 <h3>Output<a class="headerlink" href="#output" title="Permalink to this heading">#</a></h3>
-</section>
-</section>
-<section id="daftar-kolom-sepal-length-sepal-width-petal-length-petal-width-species">
-<h2>Daftar Kolom: [‘sepal_length’, ‘sepal_width’, ‘petal_length’, ‘petal_width’, ‘species’]<a class="headerlink" href="#daftar-kolom-sepal-length-sepal-width-petal-length-petal-width-species" title="Permalink to this heading">#</a></h2>
-<p>Jumlah data     : 150
+<p>Daftar Kolom: [‘sepal_length’, ‘sepal_width’, ‘petal_length’, ‘petal_width’, ‘species’]
+<br>
+Jumlah data     : 150
+<br>
 Rata-rata       : 5.843333333333334
+<br>
 Nilai minimal   : 4.3
+<br>
 Q1              : 5.1
+<br>
 Q2 (Median)     : 5.8
+<br>
 Q3              : 6.4
+<br>
 Nilai Max       : 7.9
+<br>
 Kemencengan 1   : 0.31
+<br>
 Kemencengan 2   : 0.314911
+<br>
 Standar Deviasi : 0.83
+<br>
 Variansi        : 0.69
+<br>
 Nilai modus 5.0 dengan jumlah 10</p>
 <br>
 <p>Analisis dilakukan pada variabel sepal_length dari dataset Iris dengan jumlah data sebanyak 150 observasi.Nilai rata-rata sebesar 5,84 dan median sebesar 5,8 menunjukkan bahwa distribusi data cukup seimbang, karena kedua nilai tersebut hampir sama. Nilai minimum adalah 4,3 dan maksimum 7,9, sehingga rentang data tergolong cukup luas.Kuartil pertama (Q1) sebesar 5,1 dan kuartil ketiga (Q3) sebesar 6,4 menunjukkan bahwa sebagian besar data berada dalam interval tersebut. Standar deviasi sebesar 0,83 menandakan bahwa penyebaran data tidak terlalu besar dan masih relatif stabil.Nilai skewness sebesar 0,31 menunjukkan distribusi sedikit condong ke kanan, tetapi tidak signifikan. Modus sebesar 5,0 dengan frekuensi 10 kali menunjukkan bahwa nilai tersebut paling sering muncul.Secara keseluruhan, distribusi panjang sepal cenderung stabil, relatif simetris, dan tidak menunjukkan adanya penyimpangan ekstrem yang berarti.</p>
+</section>
 </section>
 </section>
 
@@ -523,7 +555,6 @@ Nilai modus 5.0 dengan jumlah 10</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-kolom-sepal-length-sepal-width-petal-length-petal-width-species">Daftar Kolom: [‘sepal_length’, ‘sepal_width’, ‘petal_length’, ‘petal_width’, ‘species’]</a></li>
 </ul>
   </nav></div>
 

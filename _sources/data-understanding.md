@@ -47,43 +47,74 @@ Berdasarkan tabel statistik deskriptif di atas, dataset Iris menunjukkan karakte
 <br>
 
 ### Kode
+<br>
 import pandas as pd
+<br>
 from scipy import stats
-
+<br>
+<br>
 df = pd.read_csv("/content/IRIS.csv")
-
+<br>
+<br>
 print("Daftar Kolom:", df.columns.tolist())
+<br>
 print("-" * 30)
-
+<br>
+<br>
 print("Jumlah data     :", df['sepal_length'].count())
+<br>
 print("Rata-rata       :", df['sepal_length'].mean())
+<br>
 print("Nilai minimal   :", df['sepal_length'].min())
+<br>
 print("Q1              :", df['sepal_length'].quantile(0.25))
+<br>
 print("Q2 (Median)     :", df['sepal_length'].quantile(0.5))
+<br>
 print("Q3              :", df['sepal_length'].quantile(0.75))
+<br>
 print("Nilai Max       :", df['sepal_length'].max())
+<br>
 print("Kemencengan 1   :", "{0:.2f}".format(round(df['sepal_length'].skew(), 2)))
+<br>
 print("Kemencengan 2   :", "{0:.6f}".format(round(df['sepal_length'].skew(), 6)))
+<br>
 print("Standar Deviasi :", "{0:.2f}".format(round(df['sepal_length'].std(), 2)))
+<br>
 print("Variansi        :", "{0:.2f}".format(round(df['sepal_length'].var(), 2)))
-
+<br>
+<br>
 mode = stats.mode(df['sepal_length'], keepdims=True)
+<br>
 print("Nilai modus {} dengan jumlah {}".format(mode.mode[0], mode.count[0]))
+<br>
 
 ### Output
+
 Daftar Kolom: ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
-------------------------------
+<br>
 Jumlah data     : 150
+<br>
 Rata-rata       : 5.843333333333334
+<br>
 Nilai minimal   : 4.3
+<br>
 Q1              : 5.1
+<br>
 Q2 (Median)     : 5.8
+<br>
 Q3              : 6.4
+<br>
 Nilai Max       : 7.9
+<br>
 Kemencengan 1   : 0.31
+<br>
 Kemencengan 2   : 0.314911
+<br>
 Standar Deviasi : 0.83
+<br>
 Variansi        : 0.69
+<br>
 Nilai modus 5.0 dengan jumlah 10
 
 <br>
