@@ -267,3 +267,39 @@ Keterangan:
 | $\delta_{ij}^{(f)}$ | Indikator keberadaan atribut ke-f pada objek i dan j |
 | $d_{ij}^{(f)}$ | Jarak atribut ke-f antara objek i dan j |
 ​
+### Cara Menghitung $d_{ij}^{(f)}$ per Tipe Atribut
+
+#### 1. Atribut Nominal atau Binary
+
+$d_{ij}^{(f)} = 0$, jika $x_{if} = x_{jf}$ (nilai sama)
+
+$d_{ij}^{(f)} = 1$, jika $x_{if} \ne x_{jf}$ (nilai berbeda)
+
+Cara penghitungannya menggunakan metode *simple matching*.
+
+#### 2. Atribut Numerik
+
+Lakukan normalisasi terlebih dahulu agar skala seragam, misalnya dengan:
+
+Z-score:  
+$z_{if} = \frac{x_{if} - \mu_f}{\sigma_f}$
+
+Mean Absolute Deviation: lebih robust terhadap outlier.
+
+Setelah dinormalisasi, hitung jarak dengan metode numerik (Euclidean, Manhattan, dll).
+
+#### 3. Atribut Ordinal
+
+Langkah-langkah:
+
+Ganti nilai dengan ranking $r_{if}$ (misal: rendah = 1, sedang = 2, tinggi = 3)
+
+Normalisasi ke rentang [0,1]:
+
+$$
+z_{if} = \frac{r_{if} - 1}{M_f - 1}
+$$
+
+di mana $M_f$ = jumlah tingkat/kategori pada atribut ke-f
+
+Hitung jarak menggunakan metode numerik pada nilai $z_{if}$.

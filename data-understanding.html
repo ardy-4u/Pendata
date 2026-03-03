@@ -355,6 +355,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran">Penjelasan Mengukur Jarak dengan Tipe Data Campuran</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-mengukur-jarak-data-campuran">Rumus Mengukur Jarak Data Campuran</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-menghitung-d-ij-f-per-tipe-atribut">Cara Menghitung <span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span> per Tipe Atribut</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-nominal-atau-binary">1. Atribut Nominal atau Binary</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-numerik">2. Atribut Numerik</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-ordinal">3. Atribut Ordinal</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -655,6 +661,35 @@ Keterangan:</p>
 </table>
 </div>
 </section>
+<section id="cara-menghitung-d-ij-f-per-tipe-atribut">
+<h3>Cara Menghitung <span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span> per Tipe Atribut<a class="headerlink" href="#cara-menghitung-d-ij-f-per-tipe-atribut" title="Permalink to this heading">#</a></h3>
+<section id="atribut-nominal-atau-binary">
+<h4>1. Atribut Nominal atau Binary<a class="headerlink" href="#atribut-nominal-atau-binary" title="Permalink to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(d_{ij}^{(f)} = 0\)</span>, jika <span class="math notranslate nohighlight">\(x_{if} = x_{jf}\)</span> (nilai sama)</p>
+<p><span class="math notranslate nohighlight">\(d_{ij}^{(f)} = 1\)</span>, jika <span class="math notranslate nohighlight">\(x_{if} \ne x_{jf}\)</span> (nilai berbeda)</p>
+<p>Cara penghitungannya menggunakan metode <em>simple matching</em>.</p>
+</section>
+<section id="atribut-numerik">
+<h4>2. Atribut Numerik<a class="headerlink" href="#atribut-numerik" title="Permalink to this heading">#</a></h4>
+<p>Lakukan normalisasi terlebih dahulu agar skala seragam, misalnya dengan:</p>
+<p>Z-score:<br />
+<span class="math notranslate nohighlight">\(z_{if} = \frac{x_{if} - \mu_f}{\sigma_f}\)</span></p>
+<p>Mean Absolute Deviation: lebih robust terhadap outlier.</p>
+<p>Setelah dinormalisasi, hitung jarak dengan metode numerik (Euclidean, Manhattan, dll).</p>
+</section>
+<section id="atribut-ordinal">
+<h4>3. Atribut Ordinal<a class="headerlink" href="#atribut-ordinal" title="Permalink to this heading">#</a></h4>
+<p>Langkah-langkah:</p>
+<p>Ganti nilai dengan ranking <span class="math notranslate nohighlight">\(r_{if}\)</span> (misal: rendah = 1, sedang = 2, tinggi = 3)</p>
+<p>Normalisasi ke rentang [0,1]:</p>
+<div class="math notranslate nohighlight">
+\[
+z_{if} = \frac{r_{if} - 1}{M_f - 1}
+\]</div>
+<p>di mana <span class="math notranslate nohighlight">\(M_f\)</span> = jumlah tingkat/kategori pada atribut ke-f</p>
+<p>Hitung jarak menggunakan metode numerik pada nilai <span class="math notranslate nohighlight">\(z_{if}\)</span>.</p>
+</section>
+</section>
 </section>
 </section>
 
@@ -744,6 +779,12 @@ Keterangan:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran">Penjelasan Mengukur Jarak dengan Tipe Data Campuran</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-mengukur-jarak-data-campuran">Rumus Mengukur Jarak Data Campuran</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-menghitung-d-ij-f-per-tipe-atribut">Cara Menghitung <span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span> per Tipe Atribut</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-nominal-atau-binary">1. Atribut Nominal atau Binary</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-numerik">2. Atribut Numerik</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-ordinal">3. Atribut Ordinal</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
