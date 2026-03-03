@@ -256,23 +256,14 @@ Dalam praktik nyata, database yang digunakan untuk analisis data sering kali tid
 <br>
 
 ### Rumus Mengukur Jarak Data Campuran
-![alt text](image-1.png)
-<p>Keterangan:</p>
-<table border="1">
-<tr>
-<td>Simbol</td>
-<td>Penjelasan</td>
-</tr>
-<tr>
-<td>d(i,j)</td>
-<td>Jarak antara objek i dan j</td>
-</tr>
-<tr>
-<td>p</td>
-<td>Jumlah total atribut</td>
-</tr>
-<tr>
-<td>δ 
-ij
-(f)
+![Rumus Jarak](image-1.png)
+
+### Keterangan:
+
+| Simbol | Penjelasan |
+|--------|------------|
+| $d(i,j)$ | Jarak antara objek i dan j |
+| $p$ | Jumlah total atribut |
+| $\delta_{ij}^{(f)}$ | Indikator keberadaan atribut ke-f pada objek i dan j |
+| $d_{ij}^{(f)}$ | Jarak atribut ke-f antara objek i dan j |
 ​
