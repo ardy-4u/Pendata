@@ -350,6 +350,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Output</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran">Penjelasan Mengukur Jarak dengan Tipe Data Campuran</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -610,6 +614,14 @@ Modus (kategori paling sering): Iris-setosa
 </div>
 </section>
 </section>
+<section id="penjelasan-mengukur-jarak-dengan-tipe-data-campuran">
+<h2>Penjelasan Mengukur Jarak dengan Tipe Data Campuran<a class="headerlink" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran" title="Permalink to this heading">#</a></h2>
+<section id="latar-belakang">
+<h3>Latar Belakang<a class="headerlink" href="#latar-belakang" title="Permalink to this heading">#</a></h3>
+<p>Dalam praktik nyata, database yang digunakan untuk analisis data sering kali tidak hanya mengandung satu jenis tipe data saja, melainkan berbagai tipe data yang tercampur menjadi satu kesatuan. Sebagai contoh, sebuah dataset dapat memuat atribut nominal seperti warna atau jenis produk, atribut binary simetris seperti jenis kelamin, atribut binary asimetris seperti hasil tes medis yang bernilai Y/N, atribut numerik berupa data interval atau rasio seperti suhu atau pendapatan, serta atribut ordinal yang memiliki tingkatan atau peringkat seperti level kepuasan atau tingkat pendidikan. Karena setiap tipe data tersebut memiliki karakteristik dan cara pengukuran yang berbeda-beda, kita tidak dapat menerapkan satu rumus jarak secara langsung untuk menghitung kemiripan atau perbedaan antar objek. Sebagai solusi, pendekatan yang dapat digunakan adalah metode pembobotan, yaitu dengan menghitung jarak untuk setiap atribut secara terpisah sesuai dengan tipe datanya, kemudian menggabungkan seluruh hasil perhitungan tersebut menggunakan rumus jarak campuran yang memperhitungkan indikator validitas setiap atribut. Dengan pendekatan ini, seluruh jenis atribut dapat berkontribusi secara proporsional dalam perhitungan jarak akhir, sehingga hasil analisis menjadi lebih akurat dan mencerminkan karakteristik data yang sebenarnya.
+<br></p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -693,6 +705,10 @@ Modus (kategori paling sering): Iris-setosa
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#link">Link</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-lengkap">Kode Lengkap</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran">Penjelasan Mengukur Jarak dengan Tipe Data Campuran</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
 </ul>
 </li>
 </ul>
