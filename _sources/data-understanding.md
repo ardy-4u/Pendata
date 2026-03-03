@@ -257,8 +257,8 @@ Dalam praktik nyata, database yang digunakan untuk analisis data sering kali tid
 
 ### Rumus Mengukur Jarak Data Campuran
 ![Rumus Jarak](image-1.png)
-
-### Keterangan:
+<br>
+Keterangan:
 
 | Simbol | Penjelasan |
 |--------|------------|
