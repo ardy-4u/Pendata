@@ -65,6 +65,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'data-understanding';</script>
     <link rel="canonical" href="https://github.com/ardy-4u/Pendata.git/data-understanding.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -343,6 +345,26 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revisi">Revisi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Google Collab</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#link">Link</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-lengkap">Kode Lengkap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran">Penjelasan Mengukur Jarak dengan Tipe Data Campuran</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-mengukur-jarak-data-campuran">Rumus Mengukur Jarak Data Campuran</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-menghitung-d-ij-f-per-tipe-atribut">Cara Menghitung <span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span> per Tipe Atribut</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-nominal-atau-binary">1. Atribut Nominal atau Binary</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-numerik">2. Atribut Numerik</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-ordinal">3. Atribut Ordinal</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-menggunakan-orange-data-mining-untuk-data-yg-campuran">Analisis Menggunakan Orange Data Mining untuk Data yg Campuran</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasikan-data-iris-untuk-mengukur-jarak-di-orange">Implementasikan Data Iris untuk Mengukur Jarak di Orange</a></li>
 </ul>
             </nav>
         </div>
@@ -456,6 +478,256 @@ Analisis dilakukan pada variabel sepal_length dari dataset Iris dengan jumlah da
 </div>
 </section>
 </section>
+<section id="revisi">
+<h2>Revisi<a class="headerlink" href="#revisi" title="Permalink to this heading">#</a></h2>
+<br>
+</section>
+<section id="id1">
+<h2>Google Collab<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<br>
+<p><img alt="Google Collab1" src="_images/collab1.png" /></p>
+<br>
+<p><img alt="Google Collab1" src="_images/collab2.png" /></p>
+<br>
+<p><img alt="Google Collab1" src="_images/collab3.png" /></p>
+<br>
+<section id="link">
+<h3>Link<a class="headerlink" href="#link" title="Permalink to this heading">#</a></h3>
+<br>
+<p><a class="reference external" href="https://colab.research.google.com/drive/1oBRw-sXud9UBPtUMbNaHNfiLkg3Ivz17?usp=sharing">https://colab.research.google.com/drive/1oBRw-sXud9UBPtUMbNaHNfiLkg3Ivz17?usp=sharing</a></p>
+<br>
+</section>
+<section id="kode-lengkap">
+<h3>Kode Lengkap<a class="headerlink" href="#kode-lengkap" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;IRIS.csv&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Daftar Kolom:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="n">kolom_numerik</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">kolom</span> <span class="ow">in</span> <span class="n">kolom_numerik</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Statistik untuk kolom: </span><span class="si">{</span><span class="n">kolom</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah data     :&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rata-rata       :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai minimal   :&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q1              :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q2 (Median)     :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q3              :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai Max       :&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kemencengan 1   :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kemencengan 2   :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.6f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="mi">6</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standar Deviasi :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variansi        :&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+    
+    <span class="n">mode_result</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mode_result</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">mode_result</span><span class="o">.</span><span class="n">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai modus     : </span><span class="si">{}</span><span class="s2"> dengan frekuensi </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">mode_result</span><span class="o">.</span><span class="n">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mode_result</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai modus     : Tidak ada modus tunggal&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Statistik untuk kolom: SPECIES&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah data     :&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah unik     :&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai unik      :&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Distribusi frekuensi:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Modus (kategori paling sering):&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Output<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Daftar Kolom: [&#39;sepal_length&#39;, &#39;sepal_width&#39;, &#39;petal_length&#39;, &#39;petal_width&#39;, &#39;species&#39;]
+------------------------------------------------------------
+
+ Statistik untuk kolom: SEPAL_LENGTH
+----------------------------------------
+Jumlah data     : 150
+Rata-rata       : 5.84
+Nilai minimal   : 4.3
+Q1              : 5.10
+Q2 (Median)     : 5.80
+Q3              : 6.40
+Nilai Max       : 7.9
+Kemencengan 1   : 0.31
+Kemencengan 2   : 0.314911
+Standar Deviasi : 0.83
+Variansi        : 0.69
+Nilai modus     : 5.0 dengan frekuensi 10
+
+ Statistik untuk kolom: SEPAL_WIDTH
+----------------------------------------
+Jumlah data     : 150
+Rata-rata       : 3.05
+Nilai minimal   : 2.0
+Q1              : 2.80
+Q2 (Median)     : 3.00
+Q3              : 3.30
+Nilai Max       : 4.4
+Kemencengan 1   : 0.33
+Kemencengan 2   : 0.334053
+Standar Deviasi : 0.43
+Variansi        : 0.19
+Nilai modus     : 3.0 dengan frekuensi 26
+
+ Statistik untuk kolom: PETAL_LENGTH
+----------------------------------------
+Jumlah data     : 150
+Rata-rata       : 3.76
+Nilai minimal   : 1.0
+Q1              : 1.60
+Q2 (Median)     : 4.35
+Q3              : 5.10
+Nilai Max       : 6.9
+Kemencengan 1   : -0.27
+Kemencengan 2   : -0.274464
+Standar Deviasi : 1.76
+Variansi        : 3.11
+Nilai modus     : 1.5 dengan frekuensi 14
+
+ Statistik untuk kolom: PETAL_WIDTH
+----------------------------------------
+Jumlah data     : 150
+Rata-rata       : 1.20
+Nilai minimal   : 0.1
+Q1              : 0.30
+Q2 (Median)     : 1.30
+Q3              : 1.80
+Nilai Max       : 2.5
+Kemencengan 1   : -0.10
+Kemencengan 2   : -0.104997
+Standar Deviasi : 0.76
+Variansi        : 0.58
+Nilai modus     : 0.2 dengan frekuensi 28
+
+ Statistik untuk kolom: SPECIES
+----------------------------------------
+Jumlah data     : 150
+Jumlah unik     : 3
+Nilai unik      : [&#39;Iris-setosa&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-virginica&#39;]
+
+Distribusi frekuensi:
+species
+Iris-setosa        50
+Iris-versicolor    50
+Iris-virginica     50
+Name: count, dtype: int64
+
+Modus (kategori paling sering): Iris-setosa
+</pre></div>
+</div>
+</section>
+</section>
+<section id="penjelasan-mengukur-jarak-dengan-tipe-data-campuran">
+<h2>Penjelasan Mengukur Jarak dengan Tipe Data Campuran<a class="headerlink" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran" title="Permalink to this heading">#</a></h2>
+<section id="latar-belakang">
+<h3>Latar Belakang<a class="headerlink" href="#latar-belakang" title="Permalink to this heading">#</a></h3>
+<p>Dalam praktik nyata, database yang digunakan untuk analisis data sering kali tidak hanya mengandung satu jenis tipe data saja, melainkan berbagai tipe data yang tercampur menjadi satu kesatuan. Sebagai contoh, sebuah dataset dapat memuat atribut nominal seperti warna atau jenis produk, atribut binary simetris seperti jenis kelamin, atribut binary asimetris seperti hasil tes medis yang bernilai Y/N, atribut numerik berupa data interval atau rasio seperti suhu atau pendapatan, serta atribut ordinal yang memiliki tingkatan atau peringkat seperti level kepuasan atau tingkat pendidikan. Karena setiap tipe data tersebut memiliki karakteristik dan cara pengukuran yang berbeda-beda, kita tidak dapat menerapkan satu rumus jarak secara langsung untuk menghitung kemiripan atau perbedaan antar objek. Sebagai solusi, pendekatan yang dapat digunakan adalah metode pembobotan, yaitu dengan menghitung jarak untuk setiap atribut secara terpisah sesuai dengan tipe datanya, kemudian menggabungkan seluruh hasil perhitungan tersebut menggunakan rumus jarak campuran yang memperhitungkan indikator validitas setiap atribut. Dengan pendekatan ini, seluruh jenis atribut dapat berkontribusi secara proporsional dalam perhitungan jarak akhir, sehingga hasil analisis menjadi lebih akurat dan mencerminkan karakteristik data yang sebenarnya.
+<br></p>
+</section>
+<section id="rumus-mengukur-jarak-data-campuran">
+<h3>Rumus Mengukur Jarak Data Campuran<a class="headerlink" href="#rumus-mengukur-jarak-data-campuran" title="Permalink to this heading">#</a></h3>
+<p><img alt="Rumus Jarak" src="_images/image-1.png" />
+<br>
+Keterangan:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Simbol</p></th>
+<th class="head"><p>Penjelasan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(d(i,j)\)</span></p></td>
+<td><p>Jarak antara objek i dan j</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(p\)</span></p></td>
+<td><p>Jumlah total atribut</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\delta_{ij}^{(f)}\)</span></p></td>
+<td><p>Indikator keberadaan atribut ke-f pada objek i dan j</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span></p></td>
+<td><p>Jarak atribut ke-f antara objek i dan j</p></td>
+</tr>
+<tr class="row-even"><td><p>​</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cara-menghitung-d-ij-f-per-tipe-atribut">
+<h3>Cara Menghitung <span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span> per Tipe Atribut<a class="headerlink" href="#cara-menghitung-d-ij-f-per-tipe-atribut" title="Permalink to this heading">#</a></h3>
+<section id="atribut-nominal-atau-binary">
+<h4>1. Atribut Nominal atau Binary<a class="headerlink" href="#atribut-nominal-atau-binary" title="Permalink to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(d_{ij}^{(f)} = 0\)</span>, jika <span class="math notranslate nohighlight">\(x_{if} = x_{jf}\)</span> (nilai sama)</p>
+<p><span class="math notranslate nohighlight">\(d_{ij}^{(f)} = 1\)</span>, jika <span class="math notranslate nohighlight">\(x_{if} \ne x_{jf}\)</span> (nilai berbeda)</p>
+<p>Cara penghitungannya menggunakan metode <em>simple matching</em>.</p>
+</section>
+<section id="atribut-numerik">
+<h4>2. Atribut Numerik<a class="headerlink" href="#atribut-numerik" title="Permalink to this heading">#</a></h4>
+<p>Lakukan normalisasi terlebih dahulu agar skala seragam, misalnya dengan:</p>
+<p>Z-score:<br />
+<span class="math notranslate nohighlight">\(z_{if} = \frac{x_{if} - \mu_f}{\sigma_f}\)</span></p>
+<p>Mean Absolute Deviation: lebih robust terhadap outlier.</p>
+<p>Setelah dinormalisasi, hitung jarak dengan metode numerik (Euclidean, Manhattan, dll).</p>
+</section>
+<section id="atribut-ordinal">
+<h4>3. Atribut Ordinal<a class="headerlink" href="#atribut-ordinal" title="Permalink to this heading">#</a></h4>
+<p>Langkah-langkah:</p>
+<p>Ganti nilai dengan ranking <span class="math notranslate nohighlight">\(r_{if}\)</span> (misal: rendah = 1, sedang = 2, tinggi = 3)</p>
+<p>Normalisasi ke rentang [0,1]:</p>
+<div class="math notranslate nohighlight">
+\[
+z_{if} = \frac{r_{if} - 1}{M_f - 1}
+\]</div>
+<p>di mana <span class="math notranslate nohighlight">\(M_f\)</span> = jumlah tingkat/kategori pada atribut ke-f</p>
+<p>Hitung jarak menggunakan metode numerik pada nilai <span class="math notranslate nohighlight">\(z_{if}\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="analisis-menggunakan-orange-data-mining-untuk-data-yg-campuran">
+<h2>Analisis Menggunakan Orange Data Mining untuk Data yg Campuran<a class="headerlink" href="#analisis-menggunakan-orange-data-mining-untuk-data-yg-campuran" title="Permalink to this heading">#</a></h2>
+<p><img alt="alt text" src="_images/image-2.png" />
+Widget Distances dipakai untuk menghasilkan matriks dissimilarity, yaitu matriks yang berisi nilai jarak antar setiap pasangan objek dalam dataset. Pada pengaturan Compare, opsi yang dipilih adalah Rows, sehingga perhitungan dilakukan antar baris data (antar objek), bukan antar kolom atau atribut. Pengaturan ini sesuai dengan tujuan analisis klaster dan visualisasi jarak, di mana matriks yang terbentuk merepresentasikan kedekatan atau perbedaan antar n data point.</p>
+<p>Metode jarak yang digunakan adalah Manhattan (normalized). Pemilihan metrik ini dilakukan karena dataset yang digunakan mengandung atribut dengan skala berbeda, sehingga diperlukan normalisasi agar setiap atribut memiliki kontribusi yang seimbang terhadap perhitungan jarak. Manhattan dipilih karena lebih stabil terhadap perbedaan skala dan tidak terlalu sensitif terhadap nilai ekstrem dibandingkan Euclidean dalam konteks data campuran.
+<img alt="alt text" src="_images/image-3.png" />
+Gambar tersebut memperlihatkan Distance Matrix yang dihasilkan dari widget <strong>Distance Matrix</strong> pada Orange Data Mining. Matriks ini merepresentasikan nilai dissimilarity atau jarak antar setiap pasangan objek dalam dataset. Bentuknya simetris, sehingga jarak antara objek i dan j sama dengan jarak antara objek j dan i, atau <span class="math notranslate nohighlight">\(d(i,j) = d(j,i)\)</span>. Elemen pada diagonal utama bernilai nol karena setiap objek memiliki jarak nol terhadap dirinya sendiri.</p>
+<p>Setiap nilai dalam matriks menunjukkan tingkat perbedaan numerik antar dua objek. Semakin kecil nilainya, semakin tinggi tingkat kemiripan antar objek tersebut. Sebaliknya, semakin besar nilainya, semakin besar pula perbedaan karakteristik di antara keduanya.</p>
+<p>Sebagai ilustrasi, jarak antara customer 7590-VHVEG dan 5575-GNVDE sebesar 2,074 menunjukkan tingkat perbedaan yang cukup moderat. Sementara itu, jarak antara 7590-VHVEG dan 3668-QPYBK sebesar 0,554 menunjukkan bahwa kedua customer tersebut memiliki karakteristik yang relatif mirip. Perbedaan yang jauh lebih signifikan terlihat pada pasangan 8091-TTVAX dan 3668-QPYBK dengan nilai jarak sebesar 4,519, yang menunjukkan bahwa keduanya sangat berbeda secara karakteristik.</p>
+<p>Secara matematis, matriks ini memenuhi sifat dasar fungsi jarak, yaitu bernilai non-negatif untuk objek yang berbeda, bersifat simetris (<span class="math notranslate nohighlight">\(d(i,j) = d(j,i)\)</span>), serta memenuhi prinsip ketaksamaan segitiga. Matriks dissimilarity ini kemudian digunakan sebagai dasar dalam proses <strong>Hierarchical Clustering</strong> untuk mengelompokkan pelanggan berdasarkan tingkat kemiripan karakteristiknya.
+<img alt="alt text" src="_images/image-4.png" />
+<img alt="alt text" src="_images/image-5.png" />
+Berdasarkan hasil dendrogram, proses hierarchical clustering dilakukan menggunakan metode linkage Ward dan menghasilkan 4 cluster yang dianggap optimal. Pemotongan dendrogram dilakukan pada ketinggian tertentu sehingga terbentuk empat kelompok data sebagai berikut:</p>
+<p>Cluster 1 terdiri dari 50 data.<br />
+Cluster 2 terdiri dari 50 data.<br />
+Cluster 3 terdiri dari 26 data.<br />
+Cluster 4 terdiri dari 24 data.</p>
+<p>Metode Ward linkage dipilih karena bekerja dengan prinsip meminimalkan peningkatan varians dalam cluster (within-cluster variance) pada setiap tahap penggabungan. Dengan pendekatan ini, cluster yang terbentuk cenderung lebih kompak dan homogen dibandingkan metode linkage lainnya.</p>
+<p>Distribusi anggota cluster menunjukkan bahwa dua cluster utama (C1 dan C2) memiliki jumlah anggota yang sama besar, sedangkan C3 dan C4 memiliki jumlah yang lebih kecil. Hal ini mengindikasikan adanya dua kelompok data yang dominan serta dua kelompok yang lebih spesifik berdasarkan kemiripan karakteristik atribut numerik yang digunakan dalam perhitungan jarak.</p>
+<p>Hasil pengelompokan ini selanjutnya dapat dianalisis lebih lanjut melalui visualisasi seperti Scatter Plot, MDS, maupun evaluasi menggunakan Silhouette Plot untuk melihat kualitas pemisahan antar cluster.</p>
+</section>
+<section id="implementasikan-data-iris-untuk-mengukur-jarak-di-orange">
+<h2>Implementasikan Data Iris untuk Mengukur Jarak di Orange<a class="headerlink" href="#implementasikan-data-iris-untuk-mengukur-jarak-di-orange" title="Permalink to this heading">#</a></h2>
+<p><img alt="alt text" src="_images/image-6.png" /></p>
+<p>Gambar di atas merupakan sebagian data mentah dari dataset Iris yang digunakan untuk diimplementasikan dalam proses perhitungan jarak pada Orange Data Mining. Dataset ini terdiri dari empat atribut numerik, yaitu <em>sepal_length</em>, <em>sepal_width</em>, <em>petal_length</em>, dan <em>petal_width</em>, serta satu atribut kategorikal yaitu <em>species</em>.</p>
+<p>Selanjutnya dilakukan proses perhitungan jarak antar objek sehingga dihasilkan matriks dissimilarity sebagai berikut:</p>
+<p><img alt="alt text" src="_images/image-7.png" /></p>
+<p>Matriks tersebut menampilkan nilai jarak antar setiap pasangan data dalam dataset. Nilai yang lebih kecil menunjukkan tingkat kemiripan yang lebih tinggi antar objek, sedangkan nilai yang lebih besar menunjukkan perbedaan karakteristik yang semakin signifikan.</p>
+<p>Gambar di atas menunjukkan alur implementasi pengukuran jarak dan proses clustering pada dataset Iris menggunakan Orange Data Mining. Proses dimulai dari widget <strong>CSV File Import</strong> untuk memuat dataset, kemudian dilanjutkan ke tahap <strong>Preprocess</strong> guna melakukan normalisasi dan penyesuaian atribut sebelum perhitungan jarak.</p>
+<p><img alt="alt text" src="_images/image-8.png" />
+Selanjutnya, widget <strong>Distances</strong> digunakan untuk menghitung matriks dissimilarity antar objek berdasarkan metrik jarak yang telah ditentukan. Hasil perhitungan ini kemudian divisualisasikan melalui <strong>Distance Matrix</strong> untuk melihat nilai jarak antar setiap pasangan data.</p>
+<p>Matriks jarak tersebut menjadi dasar dalam proses <strong>Hierarchical Clustering</strong>, yang bertujuan mengelompokkan data berdasarkan tingkat kemiripan karakteristiknya. Hasil clustering kemudian dianalisis lebih lanjut menggunakan beberapa visualisasi, seperti <strong>Dendrogram</strong>, <strong>MDS (Multidimensional Scaling)</strong> untuk proyeksi dua dimensi, <strong>Scatter Plot</strong>, serta <strong>Silhouette Plot</strong> untuk mengevaluasi kualitas cluster.</p>
+<p>Untuk mengetahui distribusi jumlah anggota setiap cluster, output dari Hierarchical Clustering disalurkan ke widget <strong>Group By</strong>, yang kemudian ditampilkan dalam <strong>Data Table</strong> sebagai ringkasan jumlah data pada masing-masing cluster.</p>
+<p>Alur ini menunjukkan tahapan lengkap mulai dari impor data, perhitungan jarak, pembentukan cluster, hingga evaluasi dan interpretasi hasil clustering.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -534,6 +806,26 @@ Analisis dilakukan pada variabel sepal_length dari dataset Iris dengan jumlah da
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revisi">Revisi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Google Collab</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#link">Link</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-lengkap">Kode Lengkap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-mengukur-jarak-dengan-tipe-data-campuran">Penjelasan Mengukur Jarak dengan Tipe Data Campuran</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-mengukur-jarak-data-campuran">Rumus Mengukur Jarak Data Campuran</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-menghitung-d-ij-f-per-tipe-atribut">Cara Menghitung <span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span> per Tipe Atribut</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-nominal-atau-binary">1. Atribut Nominal atau Binary</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-numerik">2. Atribut Numerik</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut-ordinal">3. Atribut Ordinal</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-menggunakan-orange-data-mining-untuk-data-yg-campuran">Analisis Menggunakan Orange Data Mining untuk Data yg Campuran</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasikan-data-iris-untuk-mengukur-jarak-di-orange">Implementasikan Data Iris untuk Mengukur Jarak di Orange</a></li>
 </ul>
   </nav></div>
 
