@@ -322,10 +322,10 @@ Secara matematis, matriks ini memenuhi sifat dasar fungsi jarak, yaitu bernilai 
 ![alt text](image-12.png)
 Berdasarkan hasil dendrogram, proses hierarchical clustering dilakukan menggunakan metode linkage Ward dan menghasilkan 4 cluster yang dianggap optimal. Pemotongan dendrogram dilakukan pada ketinggian tertentu sehingga terbentuk empat kelompok data sebagai berikut:
 
-Cluster 1 terdiri dari 50 data.  
+Cluster 1 terdiri dari 3 data.  
 Cluster 2 terdiri dari 50 data.  
-Cluster 3 terdiri dari 26 data.  
-Cluster 4 terdiri dari 24 data.  
+Cluster 3 terdiri dari 125 data.  
+Cluster 4 terdiri dari 713 data.  
 
 Metode Ward linkage dipilih karena bekerja dengan prinsip meminimalkan peningkatan varians dalam cluster (within-cluster variance) pada setiap tahap penggabungan. Dengan pendekatan ini, cluster yang terbentuk cenderung lebih kompak dan homogen dibandingkan metode linkage lainnya.
 
