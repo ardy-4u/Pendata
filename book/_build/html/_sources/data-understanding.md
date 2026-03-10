@@ -305,11 +305,12 @@ di mana $M_f$ = jumlah tingkat/kategori pada atribut ke-f
 Hitung jarak menggunakan metode numerik pada nilai $z_{if}$.
 
 ## Analisis Menggunakan Orange Data Mining untuk Data yg Campuran
-![alt text](image-2.png)
+![alt text](image-13.png)
+![alt text](image-9.png)
 Widget Distances dipakai untuk menghasilkan matriks dissimilarity, yaitu matriks yang berisi nilai jarak antar setiap pasangan objek dalam dataset. Pada pengaturan Compare, opsi yang dipilih adalah Rows, sehingga perhitungan dilakukan antar baris data (antar objek), bukan antar kolom atau atribut. Pengaturan ini sesuai dengan tujuan analisis klaster dan visualisasi jarak, di mana matriks yang terbentuk merepresentasikan kedekatan atau perbedaan antar n data point.
 
 Metode jarak yang digunakan adalah Manhattan (normalized). Pemilihan metrik ini dilakukan karena dataset yang digunakan mengandung atribut dengan skala berbeda, sehingga diperlukan normalisasi agar setiap atribut memiliki kontribusi yang seimbang terhadap perhitungan jarak. Manhattan dipilih karena lebih stabil terhadap perbedaan skala dan tidak terlalu sensitif terhadap nilai ekstrem dibandingkan Euclidean dalam konteks data campuran.
-![alt text](image-3.png)
+![alt text](image-10.png)
 Gambar tersebut memperlihatkan Distance Matrix yang dihasilkan dari widget **Distance Matrix** pada Orange Data Mining. Matriks ini merepresentasikan nilai dissimilarity atau jarak antar setiap pasangan objek dalam dataset. Bentuknya simetris, sehingga jarak antara objek i dan j sama dengan jarak antara objek j dan i, atau $d(i,j) = d(j,i)$. Elemen pada diagonal utama bernilai nol karena setiap objek memiliki jarak nol terhadap dirinya sendiri.
 
 Setiap nilai dalam matriks menunjukkan tingkat perbedaan numerik antar dua objek. Semakin kecil nilainya, semakin tinggi tingkat kemiripan antar objek tersebut. Sebaliknya, semakin besar nilainya, semakin besar pula perbedaan karakteristik di antara keduanya.
@@ -317,14 +318,14 @@ Setiap nilai dalam matriks menunjukkan tingkat perbedaan numerik antar dua objek
 Sebagai ilustrasi, jarak antara customer 7590-VHVEG dan 5575-GNVDE sebesar 2,074 menunjukkan tingkat perbedaan yang cukup moderat. Sementara itu, jarak antara 7590-VHVEG dan 3668-QPYBK sebesar 0,554 menunjukkan bahwa kedua customer tersebut memiliki karakteristik yang relatif mirip. Perbedaan yang jauh lebih signifikan terlihat pada pasangan 8091-TTVAX dan 3668-QPYBK dengan nilai jarak sebesar 4,519, yang menunjukkan bahwa keduanya sangat berbeda secara karakteristik.
 
 Secara matematis, matriks ini memenuhi sifat dasar fungsi jarak, yaitu bernilai non-negatif untuk objek yang berbeda, bersifat simetris ($d(i,j) = d(j,i)$), serta memenuhi prinsip ketaksamaan segitiga. Matriks dissimilarity ini kemudian digunakan sebagai dasar dalam proses **Hierarchical Clustering** untuk mengelompokkan pelanggan berdasarkan tingkat kemiripan karakteristiknya.
-![alt text](image-4.png)
-![alt text](image-5.png)
+![alt text](image-11.png)
+![alt text](image-12.png)
 Berdasarkan hasil dendrogram, proses hierarchical clustering dilakukan menggunakan metode linkage Ward dan menghasilkan 4 cluster yang dianggap optimal. Pemotongan dendrogram dilakukan pada ketinggian tertentu sehingga terbentuk empat kelompok data sebagai berikut:
 
-Cluster 1 terdiri dari 50 data.  
+Cluster 1 terdiri dari 3 data.  
 Cluster 2 terdiri dari 50 data.  
-Cluster 3 terdiri dari 26 data.  
-Cluster 4 terdiri dari 24 data.  
+Cluster 3 terdiri dari 125 data.  
+Cluster 4 terdiri dari 713 data.  
 
 Metode Ward linkage dipilih karena bekerja dengan prinsip meminimalkan peningkatan varians dalam cluster (within-cluster variance) pada setiap tahap penggabungan. Dengan pendekatan ini, cluster yang terbentuk cenderung lebih kompak dan homogen dibandingkan metode linkage lainnya.
 
