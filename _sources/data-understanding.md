@@ -355,3 +355,210 @@ Matriks jarak tersebut menjadi dasar dalam proses **Hierarchical Clustering**, y
 Untuk mengetahui distribusi jumlah anggota setiap cluster, output dari Hierarchical Clustering disalurkan ke widget **Group By**, yang kemudian ditampilkan dalam **Data Table** sebagai ringkasan jumlah data pada masing-masing cluster.
 
 Alur ini menunjukkan tahapan lengkap mulai dari impor data, perhitungan jarak, pembentukan cluster, hingga evaluasi dan interpretasi hasil clustering.
+
+## Mengukur Jarak/Similaritas Data
+
+---
+### Normalisasi data 
+Normalisasi data adalah teknik pra-pemrosesan yang sangat penting dalam *data mining* dan *machine learning*. Tujuannya adalah menyamakan skala seluruh variabel/fitur agar tidak ada satu atribut pun yang mendominasi atribut lain hanya karena memiliki rentang angka yang lebih besar (misalnya, membandingkan atribut "gaji" dalam jutaan dengan "umur" dalam puluhan).
+
+**`Misal kita punya array data: X = [10, 20, 30, 40, 50]`**
+
+Berikut adalah macam-macam teknik normalisasi data yang paling sering digunakan:
+
+---
+
+#### 1. Min-Max Normalization
+
+Metode ini digunakan untuk menyesuaikan nilai data agar berada dalam rentang tertentu, biasanya **0 sampai 1** (atau -1 sampai 1). Teknik ini sering dipakai pada algoritma yang menghitung jarak antar data, misalnya pada *K-Means clustering*.
+
+* **Kelebihan:** Hubungan antar nilai data tetap terjaga.  
+* **Kelemahan:** Mudah terpengaruh oleh *outlier* (nilai yang terlalu jauh dari data lain).
+
+* **Rumus:**
+
+$$x_{norm} = \frac{x - x_{min}}{x_{max} - x_{min}}$$
+
+
+##### Contoh
+
+Mengubah nilai data agar berada pada rentang **0 sampai 1**.
+
+* **Rumus:**
+
+$$X_{norm} = \frac{X - X_{min}}{X_{max} - X_{min}}$$
+
+* **Data:** $X = [10, 20, 30, 40, 50]$  
+* **Nilai minimum dan maksimum:** $X_{min} = 10$, $X_{max} = 50$
+
+* **Contoh hitung (nilai 30):**
+
+$$X_{norm} = \frac{30 - 10}{50 - 10} = \frac{20}{40} = 0.5$$
+
+* **Hasil normalisasi:**  
+`[0.0, 0.25, 0.5, 0.75, 1.0]`
+
+
+---
+
+##### Min-Max New (Custom Range)
+
+Min-Max juga bisa digunakan untuk mengubah data ke **rentang baru yang kita tentukan sendiri**, misalnya **0–10**, **-1–1**, atau rentang lainnya.
+
+* **Rumus:**
+
+$$X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}} \times (New_{max} - New_{min}) + New_{min}$$
+
+###### Contoh
+
+Misalnya data ingin diubah ke rentang **0 sampai 10**.
+
+* **Data:** $X = [10, 20, 30, 40, 50]$  
+* **Nilai awal:** $X_{min} = 10$, $X_{max} = 50$  
+* **Rentang baru:** $New_{min} = 0$, $New_{max} = 10$
+
+* **Contoh hitung (nilai 30):**
+
+$$X_{new} = \frac{30 - 10}{50 - 10} \times (10 - 0) + 0$$
+
+$$X_{new} = \frac{20}{40} \times 10 = 5$$
+
+---
+
+#### 2. Z-Score Normalization
+
+Teknik ini mengubah data sehingga nilai rata-rata (*mean*) menjadi **0** dan standar deviasi menjadi **1**. Metode ini sering digunakan ketika data memiliki skala yang berbeda atau terdapat *outlier*.
+
+* **Kelebihan:** Lebih tahan terhadap *outlier* dibanding Min-Max karena mempertimbangkan penyebaran data.
+* **Kelemahan:** Hasil normalisasi tidak memiliki batas rentang tetap seperti 0 sampai 1.
+* **Rumus:**
+
+$$x_{norm} = \frac{x - \mu}{\sigma}$$
+
+*(Keterangan: $\mu$ adalah rata-rata dan $\sigma$ adalah standar deviasi).*
+
+---
+
+##### Contoh
+
+Tujuan: mengubah data sehingga **mean = 0** dan **standar deviasi = 1**.
+
+* **Rumus:**
+
+$$X_{norm} = \frac{X - \mu}{\sigma}$$
+
+* **Data kita:**  
+`[10, 20, 30, 40, 50]`
+
+* **Rata-rata (μ):**
+
+$$\mu = \frac{10 + 20 + 30 + 40 + 50}{5} = 30$$
+
+* **Rumus standar deviasi:**
+
+$$\sigma = \sqrt{\frac{\sum (X - \mu)^2}{N}}$$
+
+**Langkah perhitungan:**
+
+1. Hitung $(X - \mu)^2$
+
+- $(10 - 30)^2 = 400$  
+- $(20 - 30)^2 = 100$  
+- $(30 - 30)^2 = 0$  
+- $(40 - 30)^2 = 100$  
+- $(50 - 30)^2 = 400$
+
+2. Hitung varians
+
+$$\frac{400 + 100 + 0 + 100 + 400}{5} = 200$$
+
+3. Hitung standar deviasi
+
+$$\sigma = \sqrt{200} \approx 14.14$$
+
+---
+
+* **Contoh perhitungan (nilai 40):**
+
+$$X_{norm} = \frac{40 - 30}{14.14} = \frac{10}{14.14} \approx 0.707$$
+
+* **Hasil normalisasi seluruh data:**
+
+`[-1.414, -0.707, 0.0, 0.707, 1.414]`
+
+---
+
+#### 3. Decimal Scaling
+
+Teknik ini bekerja dengan menggeser titik desimal dari nilai data. Jumlah pergeseran desimal bergantung pada nilai absolut maksimum di dalam atribut tersebut.
+
+* **Kelebihan:** Sederhana dan mudah dihitung.
+* **Rumus:**
+
+$$x_{norm} = \frac{x}{10^j}$$
+
+*(Keterangan: $j$ adalah bilangan bulat terkecil yang membuat nilai mutlak maksimum dari $x_{norm}$ kurang dari 1).*
+
+##### Contoh :
+Menggeser koma desimal. Pembaginya ditentukan oleh nilai angka terbesar di dataset supaya nilai akhirnya kurang dari 1.
+
+* **Rumus:** 
+$$X_{norm} = \frac{X}{10^j}$$
+
+
+* **Data kita:**
+* Angka absolut paling besar = 50.
+* Kita cari nilai $j$ yang kalau 50 dibagi $10^j$ hasilnya $< 1$.
+* Maka $j = 2$ (karena $10^2 = 100$, dan $50 / 100 = 0.5$). Semua data akan dibagi 100.
+
+
+* **Contoh hitung (untuk nilai 20):**
+
+$$X_{norm} = \frac{20}{10^2} = 0.2$$
+
+
+* **Hasil seluruh data:** `[0.1, 0.2, 0.3, 0.4, 0.5]`
+
+---
+##### Implementasi dengan Sklearn dan Fungsi Kustom
+Berikut adalah script Python menggunakan scikit-learn untuk Min-Max, Z-Score, dan Robust, serta satu fungsi manual untuk Decimal Scaling.
+
+```Python
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
+
+# Data asli (sklearn membutuhkan format array 2D, misal kolom ke-bawah)
+X = np.array([[10], [20], [30], [40], [50]])
+print("Data Asli:\n", X.flatten())
+print("-" * 40)
+
+# 1. Min-Max Scaling (Sklearn)
+minmax_scaler = MinMaxScaler()
+X_minmax = minmax_scaler.fit_transform(X)
+print("1. Hasil Min-Max Scaling:\n", X_minmax.flatten())
+
+# 2. Z-Score / Standardization (Sklearn)
+standard_scaler = StandardScaler()
+X_standard = standard_scaler.fit_transform(X)
+print("2. Hasil Z-Score (Standardization):\n", X_standard.flatten())
+
+# 3. Robust Scaling (Sklearn)
+robust_scaler = RobustScaler()
+X_robust = robust_scaler.fit_transform(X)
+print("3. Hasil Robust Scaling:\n", X_robust.flatten())
+
+# 4. Decimal Scaling (Custom Function)
+def decimal_scaling(data):
+    # Cari nilai j (pangkat 10) dari nilai mutlak maksimum
+    max_abs_val = np.max(np.abs(data))
+    j = np.ceil(np.log10(max_abs_val))
+    
+    # Bagi data dengan 10 pangkat j
+    data_scaled = data / (10**j)
+    return data_scaled
+
+X_decimal = decimal_scaling(X)
+print("4. Hasil Decimal Scaling:\n", X_decimal.flatten())
+```
+
+---
