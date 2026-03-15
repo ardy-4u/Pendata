@@ -365,6 +365,35 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-menggunakan-orange-data-mining-untuk-data-yg-campuran">Analisis Menggunakan Orange Data Mining untuk Data yg Campuran</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasikan-data-iris-untuk-mengukur-jarak-di-orange">Implementasikan Data Iris untuk Mengukur Jarak di Orange</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-similaritas-data">Mengukur Jarak/Similaritas Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">1. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh">Contoh</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-new-custom-range">Min-Max New (Custom Range)</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Contoh</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score-normalization">2. Z-Score Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Contoh</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">3. Decimal Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Contoh :</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dengan-sklearn-dan-fungsi-kustom">Implementasi dengan Sklearn dan Fungsi Kustom</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-missing-values">Tugas - Missing Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#transkripsi-data">1. Transkripsi Data</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-nilai-tanda-tanya-dengan-wknn">2. Mencari Nilai Tanda Tanya (?) dengan WKNN</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-untuk-menghitung-missing-values">Kode untuk menghitung Missing values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -729,6 +758,403 @@ Selanjutnya, widget <strong>Distances</strong> digunakan untuk menghitung matrik
 <p>Untuk mengetahui distribusi jumlah anggota setiap cluster, output dari Hierarchical Clustering disalurkan ke widget <strong>Group By</strong>, yang kemudian ditampilkan dalam <strong>Data Table</strong> sebagai ringkasan jumlah data pada masing-masing cluster.</p>
 <p>Alur ini menunjukkan tahapan lengkap mulai dari impor data, perhitungan jarak, pembentukan cluster, hingga evaluasi dan interpretasi hasil clustering.</p>
 </section>
+<section id="mengukur-jarak-similaritas-data">
+<h2>Mengukur Jarak/Similaritas Data<a class="headerlink" href="#mengukur-jarak-similaritas-data" title="Permalink to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="normalisasi-data">
+<h3>Normalisasi data<a class="headerlink" href="#normalisasi-data" title="Permalink to this heading">#</a></h3>
+<p>Normalisasi data adalah teknik pra-pemrosesan yang sangat penting dalam <em>data mining</em> dan <em>machine learning</em>. Tujuannya adalah menyamakan skala seluruh variabel/fitur agar tidak ada satu atribut pun yang mendominasi atribut lain hanya karena memiliki rentang angka yang lebih besar (misalnya, membandingkan atribut “gaji” dalam jutaan dengan “umur” dalam puluhan).</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Misal</span> <span class="pre">kita</span> <span class="pre">punya</span> <span class="pre">array</span> <span class="pre">data:</span> <span class="pre">X</span> <span class="pre">=</span> <span class="pre">[10,</span> <span class="pre">20,</span> <span class="pre">30,</span> <span class="pre">40,</span> <span class="pre">50]</span></code></strong></p>
+<p>Berikut adalah macam-macam teknik normalisasi data yang paling sering digunakan:</p>
+<hr class="docutils" />
+<section id="min-max-normalization">
+<h4>1. Min-Max Normalization<a class="headerlink" href="#min-max-normalization" title="Permalink to this heading">#</a></h4>
+<p>Metode ini digunakan untuk menyesuaikan nilai data agar berada dalam rentang tertentu, biasanya <strong>0 sampai 1</strong> (atau -1 sampai 1). Teknik ini sering dipakai pada algoritma yang menghitung jarak antar data, misalnya pada <em>K-Means clustering</em>.</p>
+<ul class="simple">
+<li><p><strong>Kelebihan:</strong> Hubungan antar nilai data tetap terjaga.</p></li>
+<li><p><strong>Kelemahan:</strong> Mudah terpengaruh oleh <em>outlier</em> (nilai yang terlalu jauh dari data lain).</p></li>
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[x_{norm} = \frac{x - x_{min}}{x_{max} - x_{min}}\]</div>
+<section id="contoh">
+<h5>Contoh<a class="headerlink" href="#contoh" title="Permalink to this heading">#</a></h5>
+<p>Mengubah nilai data agar berada pada rentang <strong>0 sampai 1</strong>.</p>
+<ul class="simple">
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X_{norm} = \frac{X - X_{min}}{X_{max} - X_{min}}\]</div>
+<ul class="simple">
+<li><p><strong>Data:</strong> <span class="math notranslate nohighlight">\(X = [10, 20, 30, 40, 50]\)</span></p></li>
+<li><p><strong>Nilai minimum dan maksimum:</strong> <span class="math notranslate nohighlight">\(X_{min} = 10\)</span>, <span class="math notranslate nohighlight">\(X_{max} = 50\)</span></p></li>
+<li><p><strong>Contoh hitung (nilai 30):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X_{norm} = \frac{30 - 10}{50 - 10} = \frac{20}{40} = 0.5\]</div>
+<ul class="simple">
+<li><p><strong>Hasil normalisasi:</strong><br />
+<code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">0.25,</span> <span class="pre">0.5,</span> <span class="pre">0.75,</span> <span class="pre">1.0]</span></code></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="min-max-new-custom-range">
+<h5>Min-Max New (Custom Range)<a class="headerlink" href="#min-max-new-custom-range" title="Permalink to this heading">#</a></h5>
+<p>Min-Max juga bisa digunakan untuk mengubah data ke <strong>rentang baru yang kita tentukan sendiri</strong>, misalnya <strong>0–10</strong>, <strong>-1–1</strong>, atau rentang lainnya.</p>
+<ul class="simple">
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}} \times (New_{max} - New_{min}) + New_{min}\]</div>
+<section id="id3">
+<h6>Contoh<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h6>
+<p>Misalnya data ingin diubah ke rentang <strong>0 sampai 10</strong>.</p>
+<ul class="simple">
+<li><p><strong>Data:</strong> <span class="math notranslate nohighlight">\(X = [10, 20, 30, 40, 50]\)</span></p></li>
+<li><p><strong>Nilai awal:</strong> <span class="math notranslate nohighlight">\(X_{min} = 10\)</span>, <span class="math notranslate nohighlight">\(X_{max} = 50\)</span></p></li>
+<li><p><strong>Rentang baru:</strong> <span class="math notranslate nohighlight">\(New_{min} = 0\)</span>, <span class="math notranslate nohighlight">\(New_{max} = 10\)</span></p></li>
+<li><p><strong>Contoh hitung (nilai 30):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X_{new} = \frac{30 - 10}{50 - 10} \times (10 - 0) + 0\]</div>
+<div class="math notranslate nohighlight">
+\[X_{new} = \frac{20}{40} \times 10 = 5\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="z-score-normalization">
+<h4>2. Z-Score Normalization<a class="headerlink" href="#z-score-normalization" title="Permalink to this heading">#</a></h4>
+<p>Teknik ini mengubah data sehingga nilai rata-rata (<em>mean</em>) menjadi <strong>0</strong> dan standar deviasi menjadi <strong>1</strong>. Metode ini sering digunakan ketika data memiliki skala yang berbeda atau terdapat <em>outlier</em>.</p>
+<ul class="simple">
+<li><p><strong>Kelebihan:</strong> Lebih tahan terhadap <em>outlier</em> dibanding Min-Max karena mempertimbangkan penyebaran data.</p></li>
+<li><p><strong>Kelemahan:</strong> Hasil normalisasi tidak memiliki batas rentang tetap seperti 0 sampai 1.</p></li>
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[x_{norm} = \frac{x - \mu}{\sigma}\]</div>
+<p><em>(Keterangan: <span class="math notranslate nohighlight">\(\mu\)</span> adalah rata-rata dan <span class="math notranslate nohighlight">\(\sigma\)</span> adalah standar deviasi).</em></p>
+<hr class="docutils" />
+<section id="id4">
+<h5>Contoh<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h5>
+<p>Tujuan: mengubah data sehingga <strong>mean = 0</strong> dan <strong>standar deviasi = 1</strong>.</p>
+<ul class="simple">
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X_{norm} = \frac{X - \mu}{\sigma}\]</div>
+<ul class="simple">
+<li><p><strong>Data kita:</strong><br />
+<code class="docutils literal notranslate"><span class="pre">[10,</span> <span class="pre">20,</span> <span class="pre">30,</span> <span class="pre">40,</span> <span class="pre">50]</span></code></p></li>
+<li><p><strong>Rata-rata (μ):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mu = \frac{10 + 20 + 30 + 40 + 50}{5} = 30\]</div>
+<ul class="simple">
+<li><p><strong>Rumus standar deviasi:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\sigma = \sqrt{\frac{\sum (X - \mu)^2}{N}}\]</div>
+<p><strong>Langkah perhitungan:</strong></p>
+<ol class="arabic simple">
+<li><p>Hitung <span class="math notranslate nohighlight">\((X - \mu)^2\)</span></p></li>
+</ol>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\((10 - 30)^2 = 400\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((20 - 30)^2 = 100\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((30 - 30)^2 = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((40 - 30)^2 = 100\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((50 - 30)^2 = 400\)</span></p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Hitung varians</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\frac{400 + 100 + 0 + 100 + 400}{5} = 200\]</div>
+<ol class="arabic simple" start="3">
+<li><p>Hitung standar deviasi</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\sigma = \sqrt{200} \approx 14.14\]</div>
+<hr class="docutils" />
+<ul class="simple">
+<li><p><strong>Contoh perhitungan (nilai 40):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X_{norm} = \frac{40 - 30}{14.14} = \frac{10}{14.14} \approx 0.707\]</div>
+<ul class="simple">
+<li><p><strong>Hasil normalisasi seluruh data:</strong></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">[-1.414,</span> <span class="pre">-0.707,</span> <span class="pre">0.0,</span> <span class="pre">0.707,</span> <span class="pre">1.414]</span></code></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="decimal-scaling">
+<h4>3. Decimal Scaling<a class="headerlink" href="#decimal-scaling" title="Permalink to this heading">#</a></h4>
+<p>Teknik ini bekerja dengan menggeser titik desimal dari nilai data. Jumlah pergeseran desimal bergantung pada nilai absolut maksimum di dalam atribut tersebut.</p>
+<ul class="simple">
+<li><p><strong>Kelebihan:</strong> Sederhana dan mudah dihitung.</p></li>
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[x_{norm} = \frac{x}{10^j}\]</div>
+<p><em>(Keterangan: <span class="math notranslate nohighlight">\(j\)</span> adalah bilangan bulat terkecil yang membuat nilai mutlak maksimum dari <span class="math notranslate nohighlight">\(x_{norm}\)</span> kurang dari 1).</em></p>
+<section id="id5">
+<h5>Contoh :<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h5>
+<p>Menggeser koma desimal. Pembaginya ditentukan oleh nilai angka terbesar di dataset supaya nilai akhirnya kurang dari 1.</p>
+<ul class="simple">
+<li><p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(X_{norm} = \frac{X}{10^j}\)</span>$</p></li>
+<li><p><strong>Data kita:</strong></p></li>
+<li><p>Angka absolut paling besar = 50.</p></li>
+<li><p>Kita cari nilai <span class="math notranslate nohighlight">\(j\)</span> yang kalau 50 dibagi <span class="math notranslate nohighlight">\(10^j\)</span> hasilnya <span class="math notranslate nohighlight">\(&lt; 1\)</span>.</p></li>
+<li><p>Maka <span class="math notranslate nohighlight">\(j = 2\)</span> (karena <span class="math notranslate nohighlight">\(10^2 = 100\)</span>, dan <span class="math notranslate nohighlight">\(50 / 100 = 0.5\)</span>). Semua data akan dibagi 100.</p></li>
+<li><p><strong>Contoh hitung (untuk nilai 20):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X_{norm} = \frac{20}{10^2} = 0.2\]</div>
+<ul class="simple">
+<li><p><strong>Hasil seluruh data:</strong> <code class="docutils literal notranslate"><span class="pre">[0.1,</span> <span class="pre">0.2,</span> <span class="pre">0.3,</span> <span class="pre">0.4,</span> <span class="pre">0.5]</span></code></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="implementasi-dengan-sklearn-dan-fungsi-kustom">
+<h5>Implementasi dengan Sklearn dan Fungsi Kustom<a class="headerlink" href="#implementasi-dengan-sklearn-dan-fungsi-kustom" title="Permalink to this heading">#</a></h5>
+<p>Berikut adalah script Python menggunakan scikit-learn untuk Min-Max, Z-Score, dan Robust, serta satu fungsi manual untuk Decimal Scaling.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">RobustScaler</span>
+
+<span class="c1"># Data asli (sklearn membutuhkan format array 2D, misal kolom ke-bawah)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Asli:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># 1. Min-Max Scaling (Sklearn)</span>
+<span class="n">minmax_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">X_minmax</span> <span class="o">=</span> <span class="n">minmax_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Hasil Min-Max Scaling:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X_minmax</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+<span class="c1"># 2. Z-Score / Standardization (Sklearn)</span>
+<span class="n">standard_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_standard</span> <span class="o">=</span> <span class="n">standard_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Hasil Z-Score (Standardization):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X_standard</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+<span class="c1"># 3. Robust Scaling (Sklearn)</span>
+<span class="n">robust_scaler</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+<span class="n">X_robust</span> <span class="o">=</span> <span class="n">robust_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. Hasil Robust Scaling:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X_robust</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+<span class="c1"># 4. Decimal Scaling (Custom Function)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decimal_scaling</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># Cari nilai j (pangkat 10) dari nilai mutlak maksimum</span>
+    <span class="n">max_abs_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">max_abs_val</span><span class="p">))</span>
+    
+    <span class="c1"># Bagi data dengan 10 pangkat j</span>
+    <span class="n">data_scaled</span> <span class="o">=</span> <span class="n">data</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="n">j</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_scaled</span>
+
+<span class="n">X_decimal</span> <span class="o">=</span> <span class="n">decimal_scaling</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4. Hasil Decimal Scaling:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X_decimal</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tugas-missing-values">
+<h4>Tugas - Missing Values<a class="headerlink" href="#tugas-missing-values" title="Permalink to this heading">#</a></h4>
+<section id="transkripsi-data">
+<h5>1. Transkripsi Data<a class="headerlink" href="#transkripsi-data" title="Permalink to this heading">#</a></h5>
+<p><strong>Tabel Data Asli (Kiri) &amp; Data Normalisasi (Kanan)</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>No</p></th>
+<th class="head"><p>IPK Asli</p></th>
+<th class="head"><p>PO Asli</p></th>
+<th class="head"><p>JML Asli</p></th>
+<th class="head"><p></p></th>
+<th class="head"><p>IPK Norm</p></th>
+<th class="head"><p>PO Norm</p></th>
+<th class="head"><p>JML Norm</p></th>
+<th class="head"><p>WKNN</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>3</p></td>
+<td><p></p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p></p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>3</p></td>
+<td><p></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>2</p></td>
+<td><p></p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>400000</p></td>
+<td><p>3</p></td>
+<td><p></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>7</strong></p></td>
+<td><p><strong>2</strong></p></td>
+<td><p><strong>300000</strong></p></td>
+<td><p><strong>?</strong></p></td>
+<td><p></p></td>
+<td><p><strong>0</strong></p></td>
+<td><p><strong>0.5</strong></p></td>
+<td><p><strong>?</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="mencari-nilai-tanda-tanya-dengan-wknn">
+<h5>2. Mencari Nilai Tanda Tanya (?) dengan WKNN<a class="headerlink" href="#mencari-nilai-tanda-tanya-dengan-wknn" title="Permalink to this heading">#</a></h5>
+<p>Untuk memprediksi kelas baris ke-7 dengan data yang sudah dinormalisasi <code class="docutils literal notranslate"><span class="pre">(IPK</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">PO</span> <span class="pre">=</span> <span class="pre">0.5)</span></code>, kita harus menghitung jarak <em>Euclidean</em> dari data target ini ke semua data latih (baris 1-6).</p>
+<p>Rumus jarak Euclidean:</p>
+<div class="math notranslate nohighlight">
+\[d = \sqrt{(IPK_2 - IPK_1)^2 + (PO_2 - PO_1)^2}\]</div>
+<p><strong>Perhitungan Jarak Target ke Setiap Baris:</strong></p>
+<ul class="simple">
+<li><p><strong>Ke Baris 1</strong> (0, 0): <span class="math notranslate nohighlight">\(d = \sqrt{(0-0)^2 + (0.5-0)^2} = \sqrt{0 + 0.25} = 0.5\)</span> <em>(Kelas JMK: 0)</em></p></li>
+<li><p><strong>Ke Baris 2</strong> (0.5, 0.5): <span class="math notranslate nohighlight">\(d = \sqrt{(0.5-0)^2 + (0.5-0.5)^2} = \sqrt{0.25 + 0} = 0.5\)</span> <em>(Kelas JMK: 1)</em></p></li>
+<li><p><strong>Ke Baris 3</strong> (1, 0): <span class="math notranslate nohighlight">\(d = \sqrt{(1-0)^2 + (0-0.5)^2} = \sqrt{1 + 0.25} = \sqrt{1.25} \approx 1.118\)</span> <em>(Kelas JMK: 0)</em></p></li>
+<li><p><strong>Ke Baris 4</strong> (0, 0): <span class="math notranslate nohighlight">\(d = \sqrt{(0-0)^2 + (0.5-0)^2} = 0.5\)</span> <em>(Kelas JMK: 1)</em></p></li>
+<li><p><strong>Ke Baris 5</strong> (0.5, 0.5): <span class="math notranslate nohighlight">\(d = \sqrt{(0.5-0)^2 + (0.5-0.5)^2} = 0.5\)</span> <em>(Kelas JMK: 0)</em></p></li>
+<li><p><strong>Ke Baris 6</strong> (1, 1): <span class="math notranslate nohighlight">\(d = \sqrt{(1-0)^2 + (1-0.5)^2} = \sqrt{1 + 0.25} = \sqrt{1.25} \approx 1.118\)</span> <em>(Kelas JMK: 1)</em></p></li>
+</ul>
+<p><strong>Analisis Hasil (Ada Masalah pada Dataset):</strong>
+Jika Anda perhatikan jarak di atas, terdapat 4 tetangga terdekat yang memiliki jarak persis sama ke data target, yaitu <strong>0.5</strong> (Baris 1, 2, 4, dan 5).</p>
+<p>Algoritma WKNN memberikan bobot (<em>weight</em>) berdasarkan kebalikan dari jarak (<span class="math notranslate nohighlight">\(w = 1/d\)</span>). Karena keempat jarak ini sama persis (<span class="math notranslate nohighlight">\(0.5\)</span>), maka bobotnya juga sama persis (<span class="math notranslate nohighlight">\(w = 2\)</span>).</p>
+<ul class="simple">
+<li><p>Total bobot untuk Kelas 0 (dari baris 1 &amp; 5) = <span class="math notranslate nohighlight">\(2 + 2 = 4\)</span></p></li>
+<li><p>Total bobot untuk Kelas 1 (dari baris 2 &amp; 4) = <span class="math notranslate nohighlight">\(2 + 2 = 4\)</span></p></li>
+</ul>
+<p><strong>Kesimpulan untuk Nilai <code class="docutils literal notranslate"><span class="pre">?</span></code>:</strong>
+Dataset Excel ini memiliki anomali/kontradiksi (Baris 1 dan 4 datanya sama persis tapi kelasnya beda, begitu juga baris 2 dan 5). Akibatnya, perhitungan WKNN menghasilkan <strong>seri (tie)</strong> dengan bobot 50:50 antara Kelas 0 dan Kelas 1.</p>
+</section>
+<hr class="docutils" />
+<section id="kode-untuk-menghitung-missing-values">
+<h5>Kode untuk menghitung Missing values<a class="headerlink" href="#kode-untuk-menghitung-missing-values" title="Permalink to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="c1"># 1. Menyiapkan Data Latih (Baris 1 - 6) berdasarkan hasil normalisasi</span>
+<span class="c1"># Format: [IPK_Norm, PO_Norm, JMK_Norm (Kelas)]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># 2. Menyiapkan Data Target (Baris 7 yang dicari nilainya)</span>
+<span class="n">target_ipk</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">target_po</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== PERHITUNGAN JARAK (EUCLIDEAN DISTANCE) ===&quot;</span><span class="p">)</span>
+<span class="n">hasil_jarak</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">:</span>
+    <span class="c1"># Rumus Euclidean Distance: akar( (x2 - x1)^2 + (y2 - y1)^2 )</span>
+    <span class="n">jarak</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;ipk&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target_ipk</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;po&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target_po</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">hasil_jarak</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;baris&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;jarak&quot;</span><span class="p">:</span> <span class="n">jarak</span><span class="p">,</span>
+        <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;kelas&quot;</span><span class="p">]</span>
+    <span class="p">})</span>
+
+<span class="c1"># Urutkan data dari jarak yang paling dekat ke paling jauh</span>
+<span class="n">hasil_jarak_urut</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">hasil_jarak</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;jarak&quot;</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hasil_jarak_urut</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ke Baris </span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;baris&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> -&gt; Jarak = </span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;jarak&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | Kelas (JMK) = </span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;kelas&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== PERHITUNGAN BOBOT (WEIGHT) WKNN ===&quot;</span><span class="p">)</span>
+<span class="c1"># Misal kita menggunakan K = 4 (karena ada 4 baris yang jaraknya sama-sama terdekat yaitu 0.5)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">4</span> 
+<span class="n">tetangga_terdekat</span> <span class="o">=</span> <span class="n">hasil_jarak_urut</span><span class="p">[:</span><span class="n">K</span><span class="p">]</span>
+
+<span class="n">bobot_kelas_0</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">bobot_kelas_1</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tetangga_terdekat</span><span class="p">:</span>
+    <span class="c1"># Rumus bobot WKNN: weight = 1 / jarak</span>
+    <span class="n">bobot</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;jarak&quot;</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;kelas&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bobot_kelas_0</span> <span class="o">+=</span> <span class="n">bobot</span>
+    <span class="k">elif</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;kelas&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">bobot_kelas_1</span> <span class="o">+=</span> <span class="n">bobot</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Baris </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;baris&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Kelas </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;kelas&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">): Bobot = </span><span class="si">{</span><span class="n">bobot</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== HASIL AKHIR WKNN ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Bobot Kelas 0 : </span><span class="si">{</span><span class="n">bobot_kelas_0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Bobot Kelas 1 : </span><span class="si">{</span><span class="n">bobot_kelas_1</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">bobot_kelas_0</span> <span class="o">&gt;</span> <span class="n">bobot_kelas_1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&gt; Kesimpulan: Baris ke-7 diklasifikasikan sebagai Kelas 0&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">bobot_kelas_1</span> <span class="o">&gt;</span> <span class="n">bobot_kelas_0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&gt; Kesimpulan: Baris ke-7 diklasifikasikan sebagai Kelas 1&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&gt; Kesimpulan: SERI (Tie)! Bobot kelas 0 dan 1 sama kuat karena data latih Baris 1/4 dan 2/5 saling bertentangan nilainya.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -827,6 +1253,35 @@ Selanjutnya, widget <strong>Distances</strong> digunakan untuk menghitung matrik
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-menggunakan-orange-data-mining-untuk-data-yg-campuran">Analisis Menggunakan Orange Data Mining untuk Data yg Campuran</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasikan-data-iris-untuk-mengukur-jarak-di-orange">Implementasikan Data Iris untuk Mengukur Jarak di Orange</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-similaritas-data">Mengukur Jarak/Similaritas Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">1. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh">Contoh</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-new-custom-range">Min-Max New (Custom Range)</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Contoh</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score-normalization">2. Z-Score Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Contoh</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">3. Decimal Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Contoh :</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dengan-sklearn-dan-fungsi-kustom">Implementasi dengan Sklearn dan Fungsi Kustom</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-missing-values">Tugas - Missing Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#transkripsi-data">1. Transkripsi Data</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-nilai-tanda-tanya-dengan-wknn">2. Mencari Nilai Tanda Tanya (?) dengan WKNN</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-untuk-menghitung-missing-values">Kode untuk menghitung Missing values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
