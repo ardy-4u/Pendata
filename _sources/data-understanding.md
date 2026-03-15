@@ -562,3 +562,123 @@ print("4. Hasil Decimal Scaling:\n", X_decimal.flatten())
 ```
 
 ---
+
+#### Tugas - Missing Values
+
+##### 1. Transkripsi Data
+
+**Tabel Data Asli (Kiri) & Data Normalisasi (Kanan)**
+
+| No  | IPK Asli | PO Asli | JML Asli |     | IPK Norm | PO Norm | JML Norm | WKNN |
+| --- | ---      | ---     | ---      | --- | ---       | ---      | --- | --- |
+| 1   | 2        | 200000  | 2        |     | 0         | 0        | 0      |  |
+| 2   | 3        | 300000  | 3        |     | 0.5       | 0.5      | 1      |  |
+| 3   | 4        | 200000  | 2        |     | 1         | 0         | 0     |  |
+| 4   | 2        | 200000  | 3        |     | 0         | 0         | 1     |  |
+| 5   | 3        | 300000  | 2        |     | 0.5       | 0.5       | 0     |  |
+| 6   | 4        | 400000  | 3        |     | 1         | 1         | 1     |  |
+|**7**| **2**    |**300000**| **?**   |     | **0**     | **0.5** | **?** |  |
+
+---
+
+##### 2. Mencari Nilai Tanda Tanya (?) dengan WKNN
+
+Untuk memprediksi kelas baris ke-7 dengan data yang sudah dinormalisasi `(IPK = 0, PO = 0.5)`, kita harus menghitung jarak *Euclidean* dari data target ini ke semua data latih (baris 1-6).
+
+Rumus jarak Euclidean:
+
+
+$$d = \sqrt{(IPK_2 - IPK_1)^2 + (PO_2 - PO_1)^2}$$
+
+**Perhitungan Jarak Target ke Setiap Baris:**
+
+* **Ke Baris 1** (0, 0): $d = \sqrt{(0-0)^2 + (0.5-0)^2} = \sqrt{0 + 0.25} = 0.5$ *(Kelas JMK: 0)*
+* **Ke Baris 2** (0.5, 0.5): $d = \sqrt{(0.5-0)^2 + (0.5-0.5)^2} = \sqrt{0.25 + 0} = 0.5$ *(Kelas JMK: 1)*
+* **Ke Baris 3** (1, 0): $d = \sqrt{(1-0)^2 + (0-0.5)^2} = \sqrt{1 + 0.25} = \sqrt{1.25} \approx 1.118$ *(Kelas JMK: 0)*
+* **Ke Baris 4** (0, 0): $d = \sqrt{(0-0)^2 + (0.5-0)^2} = 0.5$ *(Kelas JMK: 1)*
+* **Ke Baris 5** (0.5, 0.5): $d = \sqrt{(0.5-0)^2 + (0.5-0.5)^2} = 0.5$ *(Kelas JMK: 0)*
+* **Ke Baris 6** (1, 1): $d = \sqrt{(1-0)^2 + (1-0.5)^2} = \sqrt{1 + 0.25} = \sqrt{1.25} \approx 1.118$ *(Kelas JMK: 1)*
+
+**Analisis Hasil (Ada Masalah pada Dataset):**
+Jika Anda perhatikan jarak di atas, terdapat 4 tetangga terdekat yang memiliki jarak persis sama ke data target, yaitu **0.5** (Baris 1, 2, 4, dan 5).
+
+Algoritma WKNN memberikan bobot (*weight*) berdasarkan kebalikan dari jarak ($w = 1/d$). Karena keempat jarak ini sama persis ($0.5$), maka bobotnya juga sama persis ($w = 2$).
+
+* Total bobot untuk Kelas 0 (dari baris 1 & 5) = $2 + 2 = 4$
+* Total bobot untuk Kelas 1 (dari baris 2 & 4) = $2 + 2 = 4$
+
+**Kesimpulan untuk Nilai `?`:**
+Dataset Excel ini memiliki anomali/kontradiksi (Baris 1 dan 4 datanya sama persis tapi kelasnya beda, begitu juga baris 2 dan 5). Akibatnya, perhitungan WKNN menghasilkan **seri (tie)** dengan bobot 50:50 antara Kelas 0 dan Kelas 1.
+
+---
+
+##### Kode untuk menghitung Missing values
+
+```python
+import math
+
+# 1. Menyiapkan Data Latih (Baris 1 - 6) berdasarkan hasil normalisasi
+# Format: [IPK_Norm, PO_Norm, JMK_Norm (Kelas)]
+train_data = [
+    {"baris": 1, "ipk": 0,   "po": 0,   "kelas": 0},
+    {"baris": 2, "ipk": 0.5, "po": 0.5, "kelas": 1},
+    {"baris": 3, "ipk": 1,   "po": 0,   "kelas": 0},
+    {"baris": 4, "ipk": 0,   "po": 0,   "kelas": 1},
+    {"baris": 5, "ipk": 0.5, "po": 0.5, "kelas": 0},
+    {"baris": 6, "ipk": 1,   "po": 1,   "kelas": 1}
+]
+
+# 2. Menyiapkan Data Target (Baris 7 yang dicari nilainya)
+target_ipk = 0
+target_po = 0.5
+
+print("=== PERHITUNGAN JARAK (EUCLIDEAN DISTANCE) ===")
+hasil_jarak = []
+
+for data in train_data:
+    # Rumus Euclidean Distance: akar( (x2 - x1)^2 + (y2 - y1)^2 )
+    jarak = math.sqrt((data["ipk"] - target_ipk)**2 + (data["po"] - target_po)**2)
+    hasil_jarak.append({
+        "baris": data["baris"],
+        "jarak": jarak,
+        "kelas": data["kelas"]
+    })
+
+# Urutkan data dari jarak yang paling dekat ke paling jauh
+hasil_jarak_urut = sorted(hasil_jarak, key=lambda x: x["jarak"])
+
+for h in hasil_jarak_urut:
+    print(f"Ke Baris {h['baris']} -> Jarak = {h['jarak']:.4f} | Kelas (JMK) = {h['kelas']}")
+
+
+print("\n=== PERHITUNGAN BOBOT (WEIGHT) WKNN ===")
+# Misal kita menggunakan K = 4 (karena ada 4 baris yang jaraknya sama-sama terdekat yaitu 0.5)
+K = 4 
+tetangga_terdekat = hasil_jarak_urut[:K]
+
+bobot_kelas_0 = 0.0
+bobot_kelas_1 = 0.0
+
+for t in tetangga_terdekat:
+    # Rumus bobot WKNN: weight = 1 / jarak
+    bobot = 1 / t["jarak"]
+    
+    if t["kelas"] == 0:
+        bobot_kelas_0 += bobot
+    elif t["kelas"] == 1:
+        bobot_kelas_1 += bobot
+        
+    print(f"Baris {t['baris']} (Kelas {t['kelas']}): Bobot = {bobot:.2f}")
+
+print("\n=== HASIL AKHIR WKNN ===")
+print(f"Total Bobot Kelas 0 : {bobot_kelas_0:.2f}")
+print(f"Total Bobot Kelas 1 : {bobot_kelas_1:.2f}")
+
+if bobot_kelas_0 > bobot_kelas_1:
+    print("=> Kesimpulan: Baris ke-7 diklasifikasikan sebagai Kelas 0")
+elif bobot_kelas_1 > bobot_kelas_0:
+    print("=> Kesimpulan: Baris ke-7 diklasifikasikan sebagai Kelas 1")
+else:
+    print("=> Kesimpulan: SERI (Tie)! Bobot kelas 0 dan 1 sama kuat karena data latih Baris 1/4 dan 2/5 saling bertentangan nilainya.")
+```
+---

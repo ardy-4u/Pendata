@@ -384,6 +384,12 @@ document.write(`
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dengan-sklearn-dan-fungsi-kustom">Implementasi dengan Sklearn dan Fungsi Kustom</a></li>
 </ul>
 </li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-missing-values">Tugas - Missing Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#transkripsi-data">1. Transkripsi Data</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-nilai-tanda-tanya-dengan-wknn">2. Mencari Nilai Tanda Tanya (?) dengan WKNN</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-untuk-menghitung-missing-values">Kode untuk menghitung Missing values</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -952,6 +958,198 @@ $<span class="math notranslate nohighlight">\(X_{norm} = \frac{X}{10^j}\)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4. Hasil Decimal Scaling:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X_decimal</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 </pre></div>
 </div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tugas-missing-values">
+<h4>Tugas - Missing Values<a class="headerlink" href="#tugas-missing-values" title="Permalink to this heading">#</a></h4>
+<section id="transkripsi-data">
+<h5>1. Transkripsi Data<a class="headerlink" href="#transkripsi-data" title="Permalink to this heading">#</a></h5>
+<p><strong>Tabel Data Asli (Kiri) &amp; Data Normalisasi (Kanan)</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>No</p></th>
+<th class="head"><p>IPK Asli</p></th>
+<th class="head"><p>PO Asli</p></th>
+<th class="head"><p>JML Asli</p></th>
+<th class="head"><p></p></th>
+<th class="head"><p>IPK Norm</p></th>
+<th class="head"><p>PO Norm</p></th>
+<th class="head"><p>JML Norm</p></th>
+<th class="head"><p>WKNN</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>3</p></td>
+<td><p></p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p></p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>3</p></td>
+<td><p></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>2</p></td>
+<td><p></p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>400000</p></td>
+<td><p>3</p></td>
+<td><p></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>7</strong></p></td>
+<td><p><strong>2</strong></p></td>
+<td><p><strong>300000</strong></p></td>
+<td><p><strong>?</strong></p></td>
+<td><p></p></td>
+<td><p><strong>0</strong></p></td>
+<td><p><strong>0.5</strong></p></td>
+<td><p><strong>?</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="mencari-nilai-tanda-tanya-dengan-wknn">
+<h5>2. Mencari Nilai Tanda Tanya (?) dengan WKNN<a class="headerlink" href="#mencari-nilai-tanda-tanya-dengan-wknn" title="Permalink to this heading">#</a></h5>
+<p>Untuk memprediksi kelas baris ke-7 dengan data yang sudah dinormalisasi <code class="docutils literal notranslate"><span class="pre">(IPK</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">PO</span> <span class="pre">=</span> <span class="pre">0.5)</span></code>, kita harus menghitung jarak <em>Euclidean</em> dari data target ini ke semua data latih (baris 1-6).</p>
+<p>Rumus jarak Euclidean:</p>
+<div class="math notranslate nohighlight">
+\[d = \sqrt{(IPK_2 - IPK_1)^2 + (PO_2 - PO_1)^2}\]</div>
+<p><strong>Perhitungan Jarak Target ke Setiap Baris:</strong></p>
+<ul class="simple">
+<li><p><strong>Ke Baris 1</strong> (0, 0): <span class="math notranslate nohighlight">\(d = \sqrt{(0-0)^2 + (0.5-0)^2} = \sqrt{0 + 0.25} = 0.5\)</span> <em>(Kelas JMK: 0)</em></p></li>
+<li><p><strong>Ke Baris 2</strong> (0.5, 0.5): <span class="math notranslate nohighlight">\(d = \sqrt{(0.5-0)^2 + (0.5-0.5)^2} = \sqrt{0.25 + 0} = 0.5\)</span> <em>(Kelas JMK: 1)</em></p></li>
+<li><p><strong>Ke Baris 3</strong> (1, 0): <span class="math notranslate nohighlight">\(d = \sqrt{(1-0)^2 + (0-0.5)^2} = \sqrt{1 + 0.25} = \sqrt{1.25} \approx 1.118\)</span> <em>(Kelas JMK: 0)</em></p></li>
+<li><p><strong>Ke Baris 4</strong> (0, 0): <span class="math notranslate nohighlight">\(d = \sqrt{(0-0)^2 + (0.5-0)^2} = 0.5\)</span> <em>(Kelas JMK: 1)</em></p></li>
+<li><p><strong>Ke Baris 5</strong> (0.5, 0.5): <span class="math notranslate nohighlight">\(d = \sqrt{(0.5-0)^2 + (0.5-0.5)^2} = 0.5\)</span> <em>(Kelas JMK: 0)</em></p></li>
+<li><p><strong>Ke Baris 6</strong> (1, 1): <span class="math notranslate nohighlight">\(d = \sqrt{(1-0)^2 + (1-0.5)^2} = \sqrt{1 + 0.25} = \sqrt{1.25} \approx 1.118\)</span> <em>(Kelas JMK: 1)</em></p></li>
+</ul>
+<p><strong>Analisis Hasil (Ada Masalah pada Dataset):</strong>
+Jika Anda perhatikan jarak di atas, terdapat 4 tetangga terdekat yang memiliki jarak persis sama ke data target, yaitu <strong>0.5</strong> (Baris 1, 2, 4, dan 5).</p>
+<p>Algoritma WKNN memberikan bobot (<em>weight</em>) berdasarkan kebalikan dari jarak (<span class="math notranslate nohighlight">\(w = 1/d\)</span>). Karena keempat jarak ini sama persis (<span class="math notranslate nohighlight">\(0.5\)</span>), maka bobotnya juga sama persis (<span class="math notranslate nohighlight">\(w = 2\)</span>).</p>
+<ul class="simple">
+<li><p>Total bobot untuk Kelas 0 (dari baris 1 &amp; 5) = <span class="math notranslate nohighlight">\(2 + 2 = 4\)</span></p></li>
+<li><p>Total bobot untuk Kelas 1 (dari baris 2 &amp; 4) = <span class="math notranslate nohighlight">\(2 + 2 = 4\)</span></p></li>
+</ul>
+<p><strong>Kesimpulan untuk Nilai <code class="docutils literal notranslate"><span class="pre">?</span></code>:</strong>
+Dataset Excel ini memiliki anomali/kontradiksi (Baris 1 dan 4 datanya sama persis tapi kelasnya beda, begitu juga baris 2 dan 5). Akibatnya, perhitungan WKNN menghasilkan <strong>seri (tie)</strong> dengan bobot 50:50 antara Kelas 0 dan Kelas 1.</p>
+</section>
+<hr class="docutils" />
+<section id="kode-untuk-menghitung-missing-values">
+<h5>Kode untuk menghitung Missing values<a class="headerlink" href="#kode-untuk-menghitung-missing-values" title="Permalink to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="c1"># 1. Menyiapkan Data Latih (Baris 1 - 6) berdasarkan hasil normalisasi</span>
+<span class="c1"># Format: [IPK_Norm, PO_Norm, JMK_Norm (Kelas)]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;ipk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>   <span class="s2">&quot;po&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>   <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># 2. Menyiapkan Data Target (Baris 7 yang dicari nilainya)</span>
+<span class="n">target_ipk</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">target_po</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== PERHITUNGAN JARAK (EUCLIDEAN DISTANCE) ===&quot;</span><span class="p">)</span>
+<span class="n">hasil_jarak</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">:</span>
+    <span class="c1"># Rumus Euclidean Distance: akar( (x2 - x1)^2 + (y2 - y1)^2 )</span>
+    <span class="n">jarak</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;ipk&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target_ipk</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;po&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target_po</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">hasil_jarak</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;baris&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;baris&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;jarak&quot;</span><span class="p">:</span> <span class="n">jarak</span><span class="p">,</span>
+        <span class="s2">&quot;kelas&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;kelas&quot;</span><span class="p">]</span>
+    <span class="p">})</span>
+
+<span class="c1"># Urutkan data dari jarak yang paling dekat ke paling jauh</span>
+<span class="n">hasil_jarak_urut</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">hasil_jarak</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;jarak&quot;</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hasil_jarak_urut</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ke Baris </span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;baris&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> -&gt; Jarak = </span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;jarak&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | Kelas (JMK) = </span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;kelas&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== PERHITUNGAN BOBOT (WEIGHT) WKNN ===&quot;</span><span class="p">)</span>
+<span class="c1"># Misal kita menggunakan K = 4 (karena ada 4 baris yang jaraknya sama-sama terdekat yaitu 0.5)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">4</span> 
+<span class="n">tetangga_terdekat</span> <span class="o">=</span> <span class="n">hasil_jarak_urut</span><span class="p">[:</span><span class="n">K</span><span class="p">]</span>
+
+<span class="n">bobot_kelas_0</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">bobot_kelas_1</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tetangga_terdekat</span><span class="p">:</span>
+    <span class="c1"># Rumus bobot WKNN: weight = 1 / jarak</span>
+    <span class="n">bobot</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;jarak&quot;</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;kelas&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bobot_kelas_0</span> <span class="o">+=</span> <span class="n">bobot</span>
+    <span class="k">elif</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;kelas&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">bobot_kelas_1</span> <span class="o">+=</span> <span class="n">bobot</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Baris </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;baris&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Kelas </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;kelas&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">): Bobot = </span><span class="si">{</span><span class="n">bobot</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== HASIL AKHIR WKNN ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Bobot Kelas 0 : </span><span class="si">{</span><span class="n">bobot_kelas_0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Bobot Kelas 1 : </span><span class="si">{</span><span class="n">bobot_kelas_1</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">bobot_kelas_0</span> <span class="o">&gt;</span> <span class="n">bobot_kelas_1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&gt; Kesimpulan: Baris ke-7 diklasifikasikan sebagai Kelas 0&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">bobot_kelas_1</span> <span class="o">&gt;</span> <span class="n">bobot_kelas_0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&gt; Kesimpulan: Baris ke-7 diklasifikasikan sebagai Kelas 1&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&gt; Kesimpulan: SERI (Tie)! Bobot kelas 0 dan 1 sama kuat karena data latih Baris 1/4 dan 2/5 saling bertentangan nilainya.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <hr class="docutils" />
 </section>
 </section>
@@ -1072,6 +1270,12 @@ $<span class="math notranslate nohighlight">\(X_{norm} = \frac{X}{10^j}\)</span>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">3. Decimal Scaling</a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Contoh :</a></li>
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dengan-sklearn-dan-fungsi-kustom">Implementasi dengan Sklearn dan Fungsi Kustom</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-missing-values">Tugas - Missing Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#transkripsi-data">1. Transkripsi Data</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-nilai-tanda-tanya-dengan-wknn">2. Mencari Nilai Tanda Tanya (?) dengan WKNN</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-untuk-menghitung-missing-values">Kode untuk menghitung Missing values</a></li>
 </ul>
 </li>
 </ul>
