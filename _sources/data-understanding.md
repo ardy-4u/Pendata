@@ -767,7 +767,5 @@ Model menghasilkan performa sempurna (100%) pada data uji, yang menunjukkan:
 
 #### 6. Kesimpulan
 
-- KNN berhasil mengklasifikasikan data dengan sangat baik  
-- Preprocessing berpengaruh besar terhadap hasil  
+- KNN berhasil mengklasifikasikan data dengan sangat baik   
 - Model menunjukkan performa maksimal pada dataset ini  
-- Perlu pengujian tambahan untuk memastikan generalisasi model
