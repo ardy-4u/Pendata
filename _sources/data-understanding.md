@@ -786,12 +786,12 @@ Total        : 2.000 sampel
 ---
 
 ### Analisa Data Kesuburan Tanah (KNN)
-
+![alt text](image-25.png)
 #### 1. Metode
 
 
 Metode yang digunakan adalah **K-Nearest Neighbors (KNN)** untuk klasifikasi tanah menjadi dua kelas: **Subur** dan **Tidak Subur**.
-
+![alt text](image-26.png)
 KNN bekerja dengan:
 - Menghitung jarak antar data (Euclidean Distance)
 - Mengambil k tetangga terdekat (k = 3)
@@ -802,21 +802,21 @@ KNN bekerja dengan:
 #### 2. Pemrosesan Data
 
 Tahapan preprocessing:
-
+![alt text](image-27.png)
 - **Handling Missing Value**  
   Data yang hilang diisi menggunakan:
   - Mean (untuk numerik)
   - Most frequent (untuk kategorikal)
-
+![alt text](image-28.png)
 - **Normalisasi Data**  
   Dilakukan untuk menyamakan skala antar fitur
   Dilakukan normalisasi menggunakan metode **Min-Max Normalization**
   Semua nilai berada pada rentang **0 – 1**
-
+![alt text](image-29.png)
 - **Seleksi Fitur (Column Filter)**  
   - Menggunakan fitur numerik
   - Menghapus ID dan fitur yang tidak relevan
-
+![alt text](image-30.png)
 - **Split Data (Partitioning)**  
   - 70% data training  
   - 30% data testing  
