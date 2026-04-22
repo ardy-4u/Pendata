@@ -710,6 +710,8 @@ Tahapan preprocessing:
 
 - **Normalisasi Data**  
   Dilakukan untuk menyamakan skala antar fitur
+  Dilakukan normalisasi menggunakan metode **Min-Max Normalization**
+  Semua nilai berada pada rentang **0 – 1**
 
 - **Seleksi Fitur (Column Filter)**  
   - Menggunakan fitur numerik
