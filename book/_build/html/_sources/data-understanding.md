@@ -686,15 +686,9 @@ else:
 ## UTS
 
 ### Analisa Data Kesuburan Tanah (KNN)
-<br>
-![alt text](image-14.png)
-<br>
 
 #### 1. Metode
 
-<br>
-![alt text](image-15.png)
-<br>
 
 Metode yang digunakan adalah **K-Nearest Neighbors (KNN)** untuk klasifikasi tanah menjadi dua kelas: **Subur** dan **Tidak Subur**.
 
@@ -708,32 +702,18 @@ KNN bekerja dengan:
 #### 2. Pemrosesan Data
 
 Tahapan preprocessing:
-<br>
-![alt text](image-16.png)
-<br>
 
 - **Handling Missing Value**  
   Data yang hilang diisi menggunakan:
   - Mean (untuk numerik)
   - Most frequent (untuk kategorikal)
-<br>
-![alt text](image-17.png)
-<br>
 
 - **Normalisasi Data**  
   Dilakukan untuk menyamakan skala antar fitur
 
-<br>
-![alt text](image-18.png)
-<br>
-
 - **Seleksi Fitur (Column Filter)**  
   - Menggunakan fitur numerik
   - Menghapus ID dan fitur yang tidak relevan
-
-<br>
-![alt text](image-19.png)
-<br>
 
 - **Split Data (Partitioning)**  
   - 70% data training  
@@ -743,9 +723,6 @@ Tahapan preprocessing:
 ---
 
 #### 3. Dataset
-<br>
-![alt text](image-20.png)
-<br>
 
 Dataset terdiri dari:
 - 2000 data
@@ -762,9 +739,6 @@ Distribusi kelas:
 
 ##### Confusion Matrix
 
-<br>
-![alt text](image-21.png)
-<br>
 
 
 |               | Pred: Tidak Subur | Pred: Subur |
@@ -773,9 +747,6 @@ Distribusi kelas:
 | Actual Subur       | 0   | 300 |
 
 ---
-<br>
-![alt text](image-22.png)
-<br>
 
 ##### Metrik Evaluasi
 
