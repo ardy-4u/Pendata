@@ -687,7 +687,7 @@ else:
 
 ### Analisa Data Kesuburan Tanah (KNN)
 <br>
-![alt text](image-14.png)
+![alt text](image-23.png)
 <br>
 
 #### 1. Metode
