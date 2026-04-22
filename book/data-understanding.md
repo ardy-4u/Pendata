@@ -809,6 +809,8 @@ Tahapan preprocessing:
   Data yang hilang diisi menggunakan:
   - Mean (untuk numerik)
   - Most frequent (untuk kategorikal)
+<br>
+
 ![alt text](image-28.png)
 <br>
 
