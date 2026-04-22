@@ -791,7 +791,13 @@ Total        : 2.000 sampel
 
 
 Metode yang digunakan adalah **K-Nearest Neighbors (KNN)** untuk klasifikasi tanah menjadi dua kelas: **Subur** dan **Tidak Subur**.
+
+<br>
+
 ![alt text](image-26.png)
+
+<br>
+
 KNN bekerja dengan:
 - Menghitung jarak antar data (Euclidean Distance)
 - Mengambil k tetangga terdekat (k = 3)
