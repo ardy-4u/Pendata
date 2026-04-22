@@ -786,7 +786,7 @@ Total        : 2.000 sampel
 ---
 
 ### Analisa Data Kesuburan Tanah (KNN)
-![alt text](image-25.png)
+![alt text](image-31.png)
 #### 1. Metode
 
 
@@ -803,20 +803,28 @@ KNN bekerja dengan:
 
 Tahapan preprocessing:
 ![alt text](image-27.png)
+<br>
+
 - **Handling Missing Value**  
   Data yang hilang diisi menggunakan:
   - Mean (untuk numerik)
   - Most frequent (untuk kategorikal)
 ![alt text](image-28.png)
+<br>
+
 - **Normalisasi Data**  
   Dilakukan untuk menyamakan skala antar fitur
   Dilakukan normalisasi menggunakan metode **Min-Max Normalization**
   Semua nilai berada pada rentang **0 – 1**
 ![alt text](image-29.png)
+<br>
+
 - **Seleksi Fitur (Column Filter)**  
   - Menggunakan fitur numerik
   - Menghapus ID dan fitur yang tidak relevan
 ![alt text](image-30.png)
+<br>
+
 - **Split Data (Partitioning)**  
   - 70% data training  
   - 30% data testing  
