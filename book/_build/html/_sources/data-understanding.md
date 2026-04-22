@@ -851,7 +851,7 @@ Distribusi kelas:
 ---
 
 ##### Metrik Evaluasi
-
+![alt text](image-24.png)
 - **Accuracy** = 100%  
 - **Precision** = 100%  
 - **Recall** = 100%  
