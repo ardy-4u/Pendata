@@ -798,7 +798,7 @@ Namun hasil ini juga mengindikasikan:
 
 ---
 
-## 6. Kesimpulan
+#### 6. Kesimpulan
 
 - KNN berhasil mengklasifikasikan data dengan sangat baik  
 - Preprocessing berpengaruh besar terhadap hasil  
