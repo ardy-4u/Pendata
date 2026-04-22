@@ -682,3 +682,90 @@ else:
     print("=> Kesimpulan: SERI (Tie)! Bobot kelas 0 dan 1 sama kuat karena data latih Baris 1/4 dan 2/5 saling bertentangan nilainya.")
 ```
 ---
+
+## UTS
+
+### Analisa Data Kesuburan Tanah (KNN)
+
+#### 1. Metode
+Metode yang digunakan adalah **K-Nearest Neighbors (KNN)** untuk klasifikasi tanah menjadi dua kelas: **Subur** dan **Tidak Subur**.
+
+KNN bekerja dengan:
+- Menghitung jarak antar data (Euclidean)
+- Mengambil k tetangga terdekat (k = 3)
+- Menentukan kelas berdasarkan mayoritas tetangga
+
+---
+
+#### 2. Pemrosesan Data
+
+Tahapan preprocessing:
+
+- **Handling Missing Value**  
+  Data kosong diisi menggunakan metode rata-rata (mean)
+
+- **Normalisasi**  
+  Digunakan untuk menyamakan skala fitur
+
+- **Seleksi Fitur (Column Filter)**  
+  - Menggunakan fitur numerik  
+  - Menghapus ID dan data kategorikal yang tidak digunakan
+
+- **Split Data (Partitioning)**  
+  - 70% data training  
+  - 30% data testing  
+  - Menggunakan stratified sampling
+
+---
+
+#### 3. Dataset
+
+Dataset terdiri dari:
+- 2000 data
+- 10 fitur (9 numerik, 1 kategorikal)
+- 1 label (Subur / Tidak Subur)
+
+Distribusi kelas:
+- Subur: 1000 data (50%)
+- Tidak Subur: 1000 data (50%)
+
+---
+
+#### 4. Hasil Evaluasi
+
+##### Confusion Matrix
+
+|               | Pred: Tidak Subur | Pred: Subur |
+|---------------|------------------|-------------|
+| Actual Tidak Subur | 175 | 0 |
+| Actual Subur       | 0   | 168 |
+
+---
+
+##### Metrik Evaluasi
+
+- **Accuracy** = 100%  
+- **Precision** = 100%  
+- **Recall** = 100%  
+- **F1-Score** = 100%  
+
+---
+
+#### 5. Analisis
+
+Model menghasilkan akurasi sempurna (100%), yang menunjukkan:
+- Pola data sangat jelas
+- Fitur mampu membedakan kelas dengan baik
+
+Namun:
+- Ada kemungkinan **overfitting**
+- Perlu diuji pada dataset lain
+
+---
+
+#### 6. Kesimpulan
+
+- KNN berhasil mengklasifikasikan data dengan sangat baik  
+- Preprocessing berpengaruh besar terhadap hasil  
+- Model cocok untuk dataset ini  
+- Validasi lanjutan tetap diperlukan
