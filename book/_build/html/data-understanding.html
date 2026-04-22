@@ -1375,33 +1375,31 @@ KNN bekerja dengan:</p>
 <hr class="docutils" />
 <section id="pemrosesan-data">
 <h4>2. Pemrosesan Data<a class="headerlink" href="#pemrosesan-data" title="Permalink to this heading">#</a></h4>
-<p>Tahapan preprocessing:
-<img alt="alt text" src="_images/image-27.png" />
-<br></p>
+<p>Tahapan preprocessing:</p>
 <ul class="simple">
 <li><p><strong>Handling Missing Value</strong><br />
 Data yang hilang diisi menggunakan:</p>
 <ul>
 <li><p>Mean (untuk numerik)</p></li>
 <li><p>Most frequent (untuk kategorikal)
+<img alt="alt text" src="_images/image-27.png" />
 <br></p></li>
 </ul>
 </li>
-</ul>
-<p><img alt="alt text" src="_images/image-28.png" />
-<br></p>
-<ul class="simple">
 <li><p><strong>Normalisasi Data</strong><br />
 Dilakukan untuk menyamakan skala antar fitur
 Dilakukan normalisasi menggunakan metode <strong>Min-Max Normalization</strong>
 Semua nilai berada pada rentang <strong>0 – 1</strong>
-<img alt="alt text" src="_images/image-29.png" />
 <br></p></li>
+</ul>
+<p><img alt="alt text" src="_images/image-28.png" />
+<br></p>
+<ul class="simple">
 <li><p><strong>Seleksi Fitur (Column Filter)</strong></p>
 <ul>
 <li><p>Menggunakan fitur numerik</p></li>
 <li><p>Menghapus ID dan fitur yang tidak relevan
-<img alt="alt text" src="_images/image-30.png" />
+<img alt="alt text" src="_images/image-29.png" />
 <br></p></li>
 </ul>
 </li>
@@ -1409,7 +1407,9 @@ Semua nilai berada pada rentang <strong>0 – 1</strong>
 <ul>
 <li><p>70% data training</p></li>
 <li><p>30% data testing</p></li>
-<li><p>Menggunakan stratified sampling</p></li>
+<li><p>Menggunakan stratified sampling
+<img alt="alt text" src="_images/image-30.png" />
+<br></p></li>
 </ul>
 </li>
 </ul>
