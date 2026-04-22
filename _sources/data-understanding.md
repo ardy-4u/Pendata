@@ -813,6 +813,9 @@ Tahapan preprocessing:
   Data yang hilang diisi menggunakan:
   - Mean (untuk numerik)
   - Most frequent (untuk kategorikal)
+
+<br>
+
 ![alt text](image-27.png)
 <br>
 
@@ -820,6 +823,7 @@ Tahapan preprocessing:
   Dilakukan untuk menyamakan skala antar fitur
   Dilakukan normalisasi menggunakan metode **Min-Max Normalization**
   Semua nilai berada pada rentang **0 – 1**
+
 <br>
 
 ![alt text](image-28.png)
@@ -828,6 +832,9 @@ Tahapan preprocessing:
 - **Seleksi Fitur (Column Filter)**  
   - Menggunakan fitur numerik
   - Menghapus ID dan fitur yang tidak relevan
+
+<br>
+
 ![alt text](image-29.png)
 <br>
 
@@ -835,6 +842,9 @@ Tahapan preprocessing:
   - 70% data training  
   - 30% data testing  
   - Menggunakan stratified sampling
+
+<br>
+
 ![alt text](image-30.png)
 <br>
 
