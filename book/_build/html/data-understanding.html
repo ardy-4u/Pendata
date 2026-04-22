@@ -405,11 +405,11 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis">5. Analisis</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">6. Kesimpulan</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">6. Kesimpulan</a></li>
 </ul>
             </nav>
         </div>
@@ -1175,12 +1175,18 @@ Dataset Excel ini memiliki anomali/kontradiksi (Baris 1 dan 4 datanya sama persi
 <h2>UTS<a class="headerlink" href="#uts" title="Permalink to this heading">#</a></h2>
 <section id="analisa-data-kesuburan-tanah-knn">
 <h3>Analisa Data Kesuburan Tanah (KNN)<a class="headerlink" href="#analisa-data-kesuburan-tanah-knn" title="Permalink to this heading">#</a></h3>
+<br>
+![alt text](image-14.png)
+<br>
 <section id="metode">
 <h4>1. Metode<a class="headerlink" href="#metode" title="Permalink to this heading">#</a></h4>
+<br>
+![alt text](image-15.png)
+<br>
 <p>Metode yang digunakan adalah <strong>K-Nearest Neighbors (KNN)</strong> untuk klasifikasi tanah menjadi dua kelas: <strong>Subur</strong> dan <strong>Tidak Subur</strong>.</p>
 <p>KNN bekerja dengan:</p>
 <ul class="simple">
-<li><p>Menghitung jarak antar data (Euclidean)</p></li>
+<li><p>Menghitung jarak antar data (Euclidean Distance)</p></li>
 <li><p>Mengambil k tetangga terdekat (k = 3)</p></li>
 <li><p>Menentukan kelas berdasarkan mayoritas tetangga</p></li>
 </ul>
@@ -1188,18 +1194,39 @@ Dataset Excel ini memiliki anomali/kontradiksi (Baris 1 dan 4 datanya sama persi
 <hr class="docutils" />
 <section id="pemrosesan-data">
 <h4>2. Pemrosesan Data<a class="headerlink" href="#pemrosesan-data" title="Permalink to this heading">#</a></h4>
-<p>Tahapan preprocessing:</p>
+<p>Tahapan preprocessing:
+<br>
+<img alt="alt text" src="_images/image-16.png" />
+<br></p>
 <ul class="simple">
 <li><p><strong>Handling Missing Value</strong><br />
-Data kosong diisi menggunakan metode rata-rata (mean)</p></li>
-<li><p><strong>Normalisasi</strong><br />
-Digunakan untuk menyamakan skala fitur</p></li>
+Data yang hilang diisi menggunakan:</p>
+<ul>
+<li><p>Mean (untuk numerik)</p></li>
+<li><p>Most frequent (untuk kategorikal)
+<br>
+<img alt="alt text" src="_images/image-17.png" />
+<br></p></li>
+</ul>
+</li>
+<li><p><strong>Normalisasi Data</strong><br />
+Dilakukan untuk menyamakan skala antar fitur</p></li>
+</ul>
+<br>
+![alt text](image-18.png)
+<br>
+<ul class="simple">
 <li><p><strong>Seleksi Fitur (Column Filter)</strong></p>
 <ul>
 <li><p>Menggunakan fitur numerik</p></li>
-<li><p>Menghapus ID dan data kategorikal yang tidak digunakan</p></li>
+<li><p>Menghapus ID dan fitur yang tidak relevan</p></li>
 </ul>
 </li>
+</ul>
+<br>
+![alt text](image-19.png)
+<br>
+<ul class="simple">
 <li><p><strong>Split Data (Partitioning)</strong></p>
 <ul>
 <li><p>70% data training</p></li>
@@ -1212,6 +1239,9 @@ Digunakan untuk menyamakan skala fitur</p></li>
 <hr class="docutils" />
 <section id="dataset">
 <h4>3. Dataset<a class="headerlink" href="#dataset" title="Permalink to this heading">#</a></h4>
+<br>
+![alt text](image-20.png)
+<br>
 <p>Dataset terdiri dari:</p>
 <ul class="simple">
 <li><p>2000 data</p></li>
@@ -1229,6 +1259,9 @@ Digunakan untuk menyamakan skala fitur</p></li>
 <h4>4. Hasil Evaluasi<a class="headerlink" href="#hasil-evaluasi" title="Permalink to this heading">#</a></h4>
 <section id="confusion-matrix">
 <h5>Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this heading">#</a></h5>
+<br>
+![alt text](image-21.png)
+<br>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -1238,18 +1271,21 @@ Digunakan untuk menyamakan skala fitur</p></li>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Actual Tidak Subur</p></td>
-<td><p>175</p></td>
+<td><p>300</p></td>
 <td><p>0</p></td>
 </tr>
 <tr class="row-odd"><td><p>Actual Subur</p></td>
 <td><p>0</p></td>
-<td><p>168</p></td>
+<td><p>300</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</section>
 <hr class="docutils" />
+<br>
+![alt text](image-22.png)
+<br>
+</section>
 <section id="metrik-evaluasi">
 <h5>Metrik Evaluasi<a class="headerlink" href="#metrik-evaluasi" title="Permalink to this heading">#</a></h5>
 <ul class="simple">
@@ -1263,28 +1299,28 @@ Digunakan untuk menyamakan skala fitur</p></li>
 <hr class="docutils" />
 <section id="analisis">
 <h4>5. Analisis<a class="headerlink" href="#analisis" title="Permalink to this heading">#</a></h4>
-<p>Model menghasilkan akurasi sempurna (100%), yang menunjukkan:</p>
+<p>Model menghasilkan performa sempurna (100%) pada data uji, yang menunjukkan:</p>
 <ul class="simple">
-<li><p>Pola data sangat jelas</p></li>
+<li><p>Pola data sangat jelas dan terpisah</p></li>
 <li><p>Fitur mampu membedakan kelas dengan baik</p></li>
 </ul>
-<p>Namun:</p>
+<p>Namun hasil ini juga mengindikasikan:</p>
 <ul class="simple">
-<li><p>Ada kemungkinan <strong>overfitting</strong></p></li>
-<li><p>Perlu diuji pada dataset lain</p></li>
+<li><p>Kemungkinan <strong>overfitting</strong></p></li>
+<li><p>Dataset terlalu ideal atau mudah dipelajari</p></li>
 </ul>
+</section>
+</section>
 </section>
 <hr class="docutils" />
 <section id="kesimpulan">
-<h4>6. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h4>
+<h2>6. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>KNN berhasil mengklasifikasikan data dengan sangat baik</p></li>
 <li><p>Preprocessing berpengaruh besar terhadap hasil</p></li>
-<li><p>Model cocok untuk dataset ini</p></li>
-<li><p>Validasi lanjutan tetap diperlukan</p></li>
+<li><p>Model menunjukkan performa maksimal pada dataset ini</p></li>
+<li><p>Perlu pengujian tambahan untuk memastikan generalisasi model</p></li>
 </ul>
-</section>
-</section>
 </section>
 </section>
 
@@ -1424,11 +1460,11 @@ Digunakan untuk menyamakan skala fitur</p></li>
 </ul>
 </li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis">5. Analisis</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">6. Kesimpulan</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">6. Kesimpulan</a></li>
 </ul>
   </nav></div>
 

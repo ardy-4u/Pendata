@@ -686,12 +686,20 @@ else:
 ## UTS
 
 ### Analisa Data Kesuburan Tanah (KNN)
+<br>
+![alt text](image-14.png)
+<br>
 
 #### 1. Metode
+
+<br>
+![alt text](image-15.png)
+<br>
+
 Metode yang digunakan adalah **K-Nearest Neighbors (KNN)** untuk klasifikasi tanah menjadi dua kelas: **Subur** dan **Tidak Subur**.
 
 KNN bekerja dengan:
-- Menghitung jarak antar data (Euclidean)
+- Menghitung jarak antar data (Euclidean Distance)
 - Mengambil k tetangga terdekat (k = 3)
 - Menentukan kelas berdasarkan mayoritas tetangga
 
@@ -700,16 +708,32 @@ KNN bekerja dengan:
 #### 2. Pemrosesan Data
 
 Tahapan preprocessing:
+<br>
+![alt text](image-16.png)
+<br>
 
 - **Handling Missing Value**  
-  Data kosong diisi menggunakan metode rata-rata (mean)
+  Data yang hilang diisi menggunakan:
+  - Mean (untuk numerik)
+  - Most frequent (untuk kategorikal)
+<br>
+![alt text](image-17.png)
+<br>
 
-- **Normalisasi**  
-  Digunakan untuk menyamakan skala fitur
+- **Normalisasi Data**  
+  Dilakukan untuk menyamakan skala antar fitur
+
+<br>
+![alt text](image-18.png)
+<br>
 
 - **Seleksi Fitur (Column Filter)**  
-  - Menggunakan fitur numerik  
-  - Menghapus ID dan data kategorikal yang tidak digunakan
+  - Menggunakan fitur numerik
+  - Menghapus ID dan fitur yang tidak relevan
+
+<br>
+![alt text](image-19.png)
+<br>
 
 - **Split Data (Partitioning)**  
   - 70% data training  
@@ -719,6 +743,9 @@ Tahapan preprocessing:
 ---
 
 #### 3. Dataset
+<br>
+![alt text](image-20.png)
+<br>
 
 Dataset terdiri dari:
 - 2000 data
@@ -735,12 +762,20 @@ Distribusi kelas:
 
 ##### Confusion Matrix
 
+<br>
+![alt text](image-21.png)
+<br>
+
+
 |               | Pred: Tidak Subur | Pred: Subur |
 |---------------|------------------|-------------|
-| Actual Tidak Subur | 175 | 0 |
-| Actual Subur       | 0   | 168 |
+| Actual Tidak Subur | 300 | 0 |
+| Actual Subur       | 0   | 300 |
 
 ---
+<br>
+![alt text](image-22.png)
+<br>
 
 ##### Metrik Evaluasi
 
@@ -753,19 +788,19 @@ Distribusi kelas:
 
 #### 5. Analisis
 
-Model menghasilkan akurasi sempurna (100%), yang menunjukkan:
-- Pola data sangat jelas
+Model menghasilkan performa sempurna (100%) pada data uji, yang menunjukkan:
+- Pola data sangat jelas dan terpisah
 - Fitur mampu membedakan kelas dengan baik
 
-Namun:
-- Ada kemungkinan **overfitting**
-- Perlu diuji pada dataset lain
+Namun hasil ini juga mengindikasikan:
+- Kemungkinan **overfitting**
+- Dataset terlalu ideal atau mudah dipelajari
 
 ---
 
-#### 6. Kesimpulan
+## 6. Kesimpulan
 
 - KNN berhasil mengklasifikasikan data dengan sangat baik  
 - Preprocessing berpengaruh besar terhadap hasil  
-- Model cocok untuk dataset ini  
-- Validasi lanjutan tetap diperlukan
+- Model menunjukkan performa maksimal pada dataset ini  
+- Perlu pengujian tambahan untuk memastikan generalisasi model
