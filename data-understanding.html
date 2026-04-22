@@ -1360,7 +1360,7 @@ Dataset Excel ini memiliki anomali/kontradiksi (Baris 1 dan 4 datanya sama persi
 <hr class="docutils" />
 <section id="analisa-data-kesuburan-tanah-knn">
 <h3>Analisa Data Kesuburan Tanah (KNN)<a class="headerlink" href="#analisa-data-kesuburan-tanah-knn" title="Permalink to this heading">#</a></h3>
-<p><img alt="alt text" src="_images/image-25.png" /></p>
+<p><img alt="alt text" src="_images/image-31.png" /></p>
 <section id="metode">
 <h4>1. Metode<a class="headerlink" href="#metode" title="Permalink to this heading">#</a></h4>
 <p>Metode yang digunakan adalah <strong>K-Nearest Neighbors (KNN)</strong> untuk klasifikasi tanah menjadi dua kelas: <strong>Subur</strong> dan <strong>Tidak Subur</strong>.
@@ -1376,26 +1376,30 @@ KNN bekerja dengan:</p>
 <section id="pemrosesan-data">
 <h4>2. Pemrosesan Data<a class="headerlink" href="#pemrosesan-data" title="Permalink to this heading">#</a></h4>
 <p>Tahapan preprocessing:
-<img alt="alt text" src="_images/image-27.png" /></p>
+<img alt="alt text" src="_images/image-27.png" />
+<br></p>
 <ul class="simple">
 <li><p><strong>Handling Missing Value</strong><br />
 Data yang hilang diisi menggunakan:</p>
 <ul>
 <li><p>Mean (untuk numerik)</p></li>
 <li><p>Most frequent (untuk kategorikal)
-<img alt="alt text" src="_images/image-28.png" /></p></li>
+<img alt="alt text" src="_images/image-28.png" />
+<br></p></li>
 </ul>
 </li>
 <li><p><strong>Normalisasi Data</strong><br />
 Dilakukan untuk menyamakan skala antar fitur
 Dilakukan normalisasi menggunakan metode <strong>Min-Max Normalization</strong>
 Semua nilai berada pada rentang <strong>0 – 1</strong>
-<img alt="alt text" src="_images/image-29.png" /></p></li>
+<img alt="alt text" src="_images/image-29.png" />
+<br></p></li>
 <li><p><strong>Seleksi Fitur (Column Filter)</strong></p>
 <ul>
 <li><p>Menggunakan fitur numerik</p></li>
 <li><p>Menghapus ID dan fitur yang tidak relevan
-<img alt="alt text" src="_images/image-30.png" /></p></li>
+<img alt="alt text" src="_images/image-30.png" />
+<br></p></li>
 </ul>
 </li>
 <li><p><strong>Split Data (Partitioning)</strong></p>
