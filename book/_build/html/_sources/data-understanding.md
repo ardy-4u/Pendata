@@ -763,10 +763,6 @@ Model menghasilkan performa sempurna (100%) pada data uji, yang menunjukkan:
 - Pola data sangat jelas dan terpisah
 - Fitur mampu membedakan kelas dengan baik
 
-Namun hasil ini juga mengindikasikan:
-- Kemungkinan **overfitting**
-- Dataset terlalu ideal atau mudah dipelajari
-
 ---
 
 #### 6. Kesimpulan
