@@ -426,6 +426,33 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-python">Code Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode-dan-output-naive-bayes">Penjelasan Kode dan Output Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode">Penjelasan Kode</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">1. Import Library</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-data-dari-knime">2. Mengambil Data dari KNIME</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-kolom">3. Seleksi Kolom</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-data-kategorikal">4. Transformasi Data Kategorikal</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menghapus-missing-value">5. Menghapus Missing Value</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#memisahkan-fitur-dan-target">6. Memisahkan Fitur dan Target</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-menjadi-data-latih-dan-data-uji">7. Membagi Data Menjadi Data Latih dan Data Uji</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-dan-melatih-model">8. Membuat dan Melatih Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-prediksi">9. Melakukan Prediksi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-hasil-evaluasi">10. Menampilkan Hasil Evaluasi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menambahkan-kolom-prediksi">11. Menambahkan Kolom Prediksi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengirim-hasil-ke-knime">12. Mengirim Hasil ke KNIME</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-report">Classification Report</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-output">Penjelasan Output</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Kesimpulan</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -1494,6 +1521,305 @@ Semua nilai berada pada rentang <strong>0 – 1</strong></p></li>
 </section>
 </section>
 </section>
+<hr class="docutils" />
+<section id="naive-bayes">
+<h2>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this heading">#</a></h2>
+<p><img alt="alt text" src="_images/image-32.png" /></p>
+<br>
+<p>Workflow ini digunakan untuk melakukan proses klasifikasi menggunakan algoritma <strong>Naive Bayes berbasis Python Script</strong> di KNIME.<br />
+Alur dimulai dari membaca data hingga evaluasi hasil prediksi.</p>
+<section id="code-python">
+<h3>Code Python<a class="headerlink" href="#code-python" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">input_table_1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">]]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Akurasi:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">output_table_1</span> <span class="o">=</span> <span class="n">df</span>
+
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h3>Output<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>Akurasi: 0.7821229050279329
+precision    recall  f1-score   support
+0       0.80      0.84      0.82       105
+1       0.75      0.70      0.73        74
+accuracy                           0.78       179
+macro avg       0.78      0.77      0.77       179
+weighted avg       0.78      0.78      0.78       179</p>
+<hr class="docutils" />
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelas</p></th>
+<th class="head"><p>Precision</p></th>
+<th class="head"><p>Recall</p></th>
+<th class="head"><p>F1-Score</p></th>
+<th class="head"><p>Support</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 (Tidak Selamat)</p></td>
+<td><p>0.80</p></td>
+<td><p>0.84</p></td>
+<td><p>0.82</p></td>
+<td><p>105</p></td>
+</tr>
+<tr class="row-odd"><td><p>1 (Selamat)</p></td>
+<td><p>0.75</p></td>
+<td><p>0.70</p></td>
+<td><p>0.73</p></td>
+<td><p>74</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Accuracy</strong></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p><strong>0.78</strong></p></td>
+<td><p>179</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Macro Avg</strong></p></td>
+<td><p>0.78</p></td>
+<td><p>0.77</p></td>
+<td><p>0.77</p></td>
+<td><p>179</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Weighted Avg</strong></p></td>
+<td><p>0.78</p></td>
+<td><p>0.78</p></td>
+<td><p>0.78</p></td>
+<td><p>179</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="penjelasan-kode-dan-output-naive-bayes">
+<h3>Penjelasan Kode dan Output Naive Bayes<a class="headerlink" href="#penjelasan-kode-dan-output-naive-bayes" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="penjelasan-kode">
+<h3>Penjelasan Kode<a class="headerlink" href="#penjelasan-kode" title="Permalink to this heading">#</a></h3>
+<p>Kode yang digunakan bertujuan untuk membangun model klasifikasi menggunakan algoritma Naive Bayes (GaussianNB) dengan memanfaatkan data dari KNIME.</p>
+<section id="import-library">
+<h4>1. Import Library<a class="headerlink" href="#import-library" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+</pre></div>
+</div>
+<p>Library yang digunakan memiliki fungsi sebagai berikut:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> digunakan untuk manipulasi data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> digunakan untuk membagi data menjadi data latih dan data uji.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GaussianNB</span></code> digunakan sebagai algoritma klasifikasi Naive Bayes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">accuracy_score</span></code> dan <code class="docutils literal notranslate"><span class="pre">classification_report</span></code> digunakan untuk evaluasi model.</p></li>
+</ul>
+</section>
+<section id="mengambil-data-dari-knime">
+<h4>2. Mengambil Data dari KNIME<a class="headerlink" href="#mengambil-data-dari-knime" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">input_table_1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Baris ini mengambil data dari node sebelumnya di KNIME. Variabel <code class="docutils literal notranslate"><span class="pre">input_table_1</span></code> merupakan tabel input utama yang diberikan oleh node Python Script. Fungsi <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> digunakan agar data asli tidak berubah secara langsung selama proses pengolahan.</p>
+</section>
+<section id="seleksi-kolom">
+<h4>3. Seleksi Kolom<a class="headerlink" href="#seleksi-kolom" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>Bagian ini memilih kolom yang akan digunakan dalam proses klasifikasi, yaitu:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Survived</span></code> sebagai variabel target.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Sex</span></code> dan <code class="docutils literal notranslate"><span class="pre">Pclass</span></code> sebagai variabel fitur.</p></li>
+</ul>
+<p>Kolom lain tidak digunakan karena tidak diperlukan dalam model ini.</p>
+</section>
+<section id="transformasi-data-kategorikal">
+<h4>4. Transformasi Data Kategorikal<a class="headerlink" href="#transformasi-data-kategorikal" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Kolom <code class="docutils literal notranslate"><span class="pre">Sex</span></code> masih berupa data kategorikal berbentuk teks, sehingga harus diubah menjadi bentuk numerik agar dapat diproses oleh model. Transformasi yang dilakukan adalah:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">male</span></code> menjadi <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">female</span></code> menjadi <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
+</ul>
+<p>Langkah ini disebut encoding sederhana.</p>
+</section>
+<section id="menghapus-missing-value">
+<h4>5. Menghapus Missing Value<a class="headerlink" href="#menghapus-missing-value" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Baris ini digunakan untuk menghapus data yang memiliki nilai kosong atau hilang. Langkah ini penting agar model tidak mengalami error saat dilatih.</p>
+</section>
+<section id="memisahkan-fitur-dan-target">
+<h4>6. Memisahkan Fitur dan Target<a class="headerlink" href="#memisahkan-fitur-dan-target" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pada tahap ini, data dipisahkan menjadi:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code> sebagai fitur input.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> sebagai target yang ingin diprediksi.</p></li>
+</ul>
+<p>Fungsi <code class="docutils literal notranslate"><span class="pre">.astype(int)</span></code> digunakan untuk memastikan bahwa <code class="docutils literal notranslate"><span class="pre">Survived</span></code> bertipe bilangan bulat. Hal ini diperlukan agar target dapat dikenali dengan benar oleh model klasifikasi.</p>
+</section>
+<section id="membagi-data-menjadi-data-latih-dan-data-uji">
+<h4>7. Membagi Data Menjadi Data Latih dan Data Uji<a class="headerlink" href="#membagi-data-menjadi-data-latih-dan-data-uji" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Data dibagi menjadi dua bagian:</p>
+<ul class="simple">
+<li><p>80% untuk data latih.</p></li>
+<li><p>20% untuk data uji.</p></li>
+</ul>
+<p>Parameter <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code> digunakan agar hasil pembagian data tetap konsisten setiap kali program dijalankan.</p>
+</section>
+<section id="membuat-dan-melatih-model">
+<h4>8. Membuat dan Melatih Model<a class="headerlink" href="#membuat-dan-melatih-model" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Bagian ini membuat model Naive Bayes dan melatihnya menggunakan data latih.<br />
+<code class="docutils literal notranslate"><span class="pre">GaussianNB()</span></code> dipilih karena cocok untuk data numerik.</p>
+</section>
+<section id="melakukan-prediksi">
+<h4>9. Melakukan Prediksi<a class="headerlink" href="#melakukan-prediksi" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Model yang telah dilatih digunakan untuk memprediksi data uji. Hasil prediksi disimpan ke dalam variabel <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>.</p>
+</section>
+<section id="menampilkan-hasil-evaluasi">
+<h4>10. Menampilkan Hasil Evaluasi<a class="headerlink" href="#menampilkan-hasil-evaluasi" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Akurasi:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Bagian ini digunakan untuk menampilkan hasil evaluasi model, yaitu:</p>
+<ul class="simple">
+<li><p>Akurasi</p></li>
+<li><p>Precision</p></li>
+<li><p>Recall</p></li>
+<li><p>F1-score</p></li>
+</ul>
+</section>
+<section id="menambahkan-kolom-prediksi">
+<h4>11. Menambahkan Kolom Prediksi<a class="headerlink" href="#menambahkan-kolom-prediksi" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Model digunakan untuk melakukan prediksi terhadap seluruh data pada fitur <code class="docutils literal notranslate"><span class="pre">X</span></code>, kemudian hasilnya disimpan ke dalam kolom baru bernama <code class="docutils literal notranslate"><span class="pre">prediction</span></code>.</p>
+</section>
+<section id="mengirim-hasil-ke-knime">
+<h4>12. Mengirim Hasil ke KNIME<a class="headerlink" href="#mengirim-hasil-ke-knime" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">output_table_1</span> <span class="o">=</span> <span class="n">df</span>
+</pre></div>
+</div>
+<p>Baris ini digunakan untuk mengirim hasil akhir kembali ke KNIME agar dapat ditampilkan atau diproses lebih lanjut.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h3>Output<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>Hasil evaluasi model menunjukkan nilai akurasi sebesar <code class="docutils literal notranslate"><span class="pre">0.7821229050279329</span></code>. Nilai ini berarti bahwa model mampu memprediksi dengan benar sekitar 78.21% dari data uji.</p>
+<section id="classification-report">
+<h4>Classification Report<a class="headerlink" href="#classification-report" title="Permalink to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelas</p></th>
+<th class="head"><p>Precision</p></th>
+<th class="head"><p>Recall</p></th>
+<th class="head"><p>F1-Score</p></th>
+<th class="head"><p>Support</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 (Tidak Selamat)</p></td>
+<td><p>0.80</p></td>
+<td><p>0.84</p></td>
+<td><p>0.82</p></td>
+<td><p>105</p></td>
+</tr>
+<tr class="row-odd"><td><p>1 (Selamat)</p></td>
+<td><p>0.75</p></td>
+<td><p>0.70</p></td>
+<td><p>0.73</p></td>
+<td><p>74</p></td>
+</tr>
+<tr class="row-even"><td><p>Accuracy</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>0.78</p></td>
+<td><p>179</p></td>
+</tr>
+<tr class="row-odd"><td><p>Macro Avg</p></td>
+<td><p>0.78</p></td>
+<td><p>0.77</p></td>
+<td><p>0.77</p></td>
+<td><p>179</p></td>
+</tr>
+<tr class="row-even"><td><p>Weighted Avg</p></td>
+<td><p>0.78</p></td>
+<td><p>0.78</p></td>
+<td><p>0.78</p></td>
+<td><p>179</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="penjelasan-output">
+<h4>Penjelasan Output<a class="headerlink" href="#penjelasan-output" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Precision</strong> menunjukkan ketepatan prediksi model untuk masing-masing kelas.</p></li>
+<li><p><strong>Recall</strong> menunjukkan kemampuan model dalam menemukan seluruh data pada suatu kelas.</p></li>
+<li><p><strong>F1-score</strong> merupakan rata-rata harmonis antara precision dan recall.</p></li>
+<li><p><strong>Support</strong> menunjukkan jumlah data aktual pada masing-masing kelas.</p></li>
+</ul>
+<p>Dari hasil tersebut, model memiliki performa lebih baik dalam memprediksi kelas <code class="docutils literal notranslate"><span class="pre">0</span></code> dibandingkan kelas <code class="docutils literal notranslate"><span class="pre">1</span></code>. Hal ini terlihat dari nilai recall dan F1-score yang lebih tinggi pada kelas <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h3>Kesimpulan<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>Model Naive Bayes yang dibangun menggunakan Python di KNIME berhasil melakukan klasifikasi data Titanic dengan akurasi sekitar 78%. Dengan menggunakan fitur <code class="docutils literal notranslate"><span class="pre">Sex</span></code> dan <code class="docutils literal notranslate"><span class="pre">Pclass</span></code>, model sudah mampu mengenali pola dasar dalam data. Hasil ini menunjukkan bahwa algoritma Naive Bayes dapat digunakan sebagai metode klasifikasi yang cukup baik untuk analisis data sederhana.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1651,6 +1977,33 @@ Semua nilai berada pada rentang <strong>0 – 1</strong></p></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">6. Kesimpulan</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-python">Code Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode-dan-output-naive-bayes">Penjelasan Kode dan Output Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode">Penjelasan Kode</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">1. Import Library</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-data-dari-knime">2. Mengambil Data dari KNIME</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-kolom">3. Seleksi Kolom</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-data-kategorikal">4. Transformasi Data Kategorikal</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menghapus-missing-value">5. Menghapus Missing Value</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#memisahkan-fitur-dan-target">6. Memisahkan Fitur dan Target</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-menjadi-data-latih-dan-data-uji">7. Membagi Data Menjadi Data Latih dan Data Uji</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-dan-melatih-model">8. Membuat dan Melatih Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-prediksi">9. Melakukan Prediksi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-hasil-evaluasi">10. Menampilkan Hasil Evaluasi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menambahkan-kolom-prediksi">11. Menambahkan Kolom Prediksi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengirim-hasil-ke-knime">12. Mengirim Hasil ke KNIME</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-report">Classification Report</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-output">Penjelasan Output</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Kesimpulan</a></li>
 </ul>
 </li>
 </ul>
