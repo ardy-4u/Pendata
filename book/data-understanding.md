@@ -897,3 +897,239 @@ Model menghasilkan performa sempurna (100%) pada data uji, yang menunjukkan:
 
 - KNN berhasil mengklasifikasikan data dengan sangat baik   
 - Model menunjukkan performa maksimal pada dataset ini  
+
+---
+
+## Naive Bayes
+
+![alt text](image-32.png)
+
+<br>
+
+Workflow ini digunakan untuk melakukan proses klasifikasi menggunakan algoritma **Naive Bayes berbasis Python Script** di KNIME.  
+Alur dimulai dari membaca data hingga evaluasi hasil prediksi.
+
+### Code Python
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, classification_report
+
+df = input_table_1.copy()
+
+df = df[['Survived', 'Sex', 'Pclass']]
+
+df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
+
+df = df.dropna()
+
+X = df[['Sex', 'Pclass']]
+y = df['Survived'].astype(int)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+model = GaussianNB()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print("Akurasi:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+df['prediction'] = model.predict(X)
+
+output_table_1 = df
+
+```
+---
+
+### Output
+
+Akurasi: 0.7821229050279329
+              precision    recall  f1-score   support
+           0       0.80      0.84      0.82       105
+           1       0.75      0.70      0.73        74
+    accuracy                           0.78       179
+   macro avg       0.78      0.77      0.77       179
+weighted avg       0.78      0.78      0.78       179
+
+---
+
+| Kelas | Precision | Recall | F1-Score | Support |
+|------|----------|--------|----------|--------|
+| 0 (Tidak Selamat) | 0.80 | 0.84 | 0.82 | 105 |
+| 1 (Selamat)       | 0.75 | 0.70 | 0.73 | 74  |
+| **Accuracy**      |      |      | **0.78** | 179 |
+| **Macro Avg**     | 0.78 | 0.77 | 0.77 | 179 |
+| **Weighted Avg**  | 0.78 | 0.78 | 0.78 | 179 |
+
+---
+### Penjelasan Kode dan Output Naive Bayes
+
+### Penjelasan Kode
+
+Kode yang digunakan bertujuan untuk membangun model klasifikasi menggunakan algoritma Naive Bayes (GaussianNB) dengan memanfaatkan data dari KNIME.
+
+#### 1. Import Library
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, classification_report
+```
+
+Library yang digunakan memiliki fungsi sebagai berikut:
+- `pandas` digunakan untuk manipulasi data.
+- `train_test_split` digunakan untuk membagi data menjadi data latih dan data uji.
+- `GaussianNB` digunakan sebagai algoritma klasifikasi Naive Bayes.
+- `accuracy_score` dan `classification_report` digunakan untuk evaluasi model.
+
+#### 2. Mengambil Data dari KNIME
+
+```python
+df = input_table_1.copy()
+```
+
+Baris ini mengambil data dari node sebelumnya di KNIME. Variabel `input_table_1` merupakan tabel input utama yang diberikan oleh node Python Script. Fungsi `.copy()` digunakan agar data asli tidak berubah secara langsung selama proses pengolahan.
+
+#### 3. Seleksi Kolom
+
+```python
+df = df[['Survived', 'Sex', 'Pclass']]
+```
+
+Bagian ini memilih kolom yang akan digunakan dalam proses klasifikasi, yaitu:
+- `Survived` sebagai variabel target.
+- `Sex` dan `Pclass` sebagai variabel fitur.
+
+Kolom lain tidak digunakan karena tidak diperlukan dalam model ini.
+
+#### 4. Transformasi Data Kategorikal
+
+```python
+df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
+```
+
+Kolom `Sex` masih berupa data kategorikal berbentuk teks, sehingga harus diubah menjadi bentuk numerik agar dapat diproses oleh model. Transformasi yang dilakukan adalah:
+- `male` menjadi `0`
+- `female` menjadi `1`
+
+Langkah ini disebut encoding sederhana.
+
+#### 5. Menghapus Missing Value
+
+```python
+df = df.dropna()
+```
+
+Baris ini digunakan untuk menghapus data yang memiliki nilai kosong atau hilang. Langkah ini penting agar model tidak mengalami error saat dilatih.
+
+#### 6. Memisahkan Fitur dan Target
+
+```python
+X = df[['Sex', 'Pclass']]
+y = df['Survived'].astype(int)
+```
+
+Pada tahap ini, data dipisahkan menjadi:
+- `X` sebagai fitur input.
+- `y` sebagai target yang ingin diprediksi.
+
+Fungsi `.astype(int)` digunakan untuk memastikan bahwa `Survived` bertipe bilangan bulat. Hal ini diperlukan agar target dapat dikenali dengan benar oleh model klasifikasi.
+
+#### 7. Membagi Data Menjadi Data Latih dan Data Uji
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+```
+
+Data dibagi menjadi dua bagian:
+- 80% untuk data latih.
+- 20% untuk data uji.
+
+Parameter `random_state=42` digunakan agar hasil pembagian data tetap konsisten setiap kali program dijalankan.
+
+#### 8. Membuat dan Melatih Model
+
+```python
+model = GaussianNB()
+model.fit(X_train, y_train)
+```
+
+Bagian ini membuat model Naive Bayes dan melatihnya menggunakan data latih.  
+`GaussianNB()` dipilih karena cocok untuk data numerik.
+
+#### 9. Melakukan Prediksi
+
+```python
+y_pred = model.predict(X_test)
+```
+
+Model yang telah dilatih digunakan untuk memprediksi data uji. Hasil prediksi disimpan ke dalam variabel `y_pred`.
+
+#### 10. Menampilkan Hasil Evaluasi
+
+```python
+print("Akurasi:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+```
+
+Bagian ini digunakan untuk menampilkan hasil evaluasi model, yaitu:
+- Akurasi
+- Precision
+- Recall
+- F1-score
+
+#### 11. Menambahkan Kolom Prediksi
+
+```python
+df['prediction'] = model.predict(X)
+```
+
+Model digunakan untuk melakukan prediksi terhadap seluruh data pada fitur `X`, kemudian hasilnya disimpan ke dalam kolom baru bernama `prediction`.
+
+#### 12. Mengirim Hasil ke KNIME
+
+```python
+output_table_1 = df
+```
+
+Baris ini digunakan untuk mengirim hasil akhir kembali ke KNIME agar dapat ditampilkan atau diproses lebih lanjut.
+
+---
+
+### Output
+
+Hasil evaluasi model menunjukkan nilai akurasi sebesar `0.7821229050279329`. Nilai ini berarti bahwa model mampu memprediksi dengan benar sekitar 78.21% dari data uji.
+
+#### Classification Report
+
+| Kelas | Precision | Recall | F1-Score | Support |
+|------|----------|--------|----------|--------|
+| 0 (Tidak Selamat) | 0.80 | 0.84 | 0.82 | 105 |
+| 1 (Selamat)       | 0.75 | 0.70 | 0.73 | 74  |
+| Accuracy          |      |      | 0.78 | 179 |
+| Macro Avg         | 0.78 | 0.77 | 0.77 | 179 |
+| Weighted Avg      | 0.78 | 0.78 | 0.78 | 179 |
+
+#### Penjelasan Output
+
+- **Precision** menunjukkan ketepatan prediksi model untuk masing-masing kelas.
+- **Recall** menunjukkan kemampuan model dalam menemukan seluruh data pada suatu kelas.
+- **F1-score** merupakan rata-rata harmonis antara precision dan recall.
+- **Support** menunjukkan jumlah data aktual pada masing-masing kelas.
+
+Dari hasil tersebut, model memiliki performa lebih baik dalam memprediksi kelas `0` dibandingkan kelas `1`. Hal ini terlihat dari nilai recall dan F1-score yang lebih tinggi pada kelas `0`.
+
+---
+
+### Kesimpulan
+
+Model Naive Bayes yang dibangun menggunakan Python di KNIME berhasil melakukan klasifikasi data Titanic dengan akurasi sekitar 78%. Dengan menggunakan fitur `Sex` dan `Pclass`, model sudah mampu mengenali pola dasar dalam data. Hasil ini menunjukkan bahwa algoritma Naive Bayes dapat digunakan sebagai metode klasifikasi yang cukup baik untuk analisis data sederhana.
