@@ -949,6 +949,10 @@ output_table_1 = df
 
 ### Output
 
+![alt text](image-33.png)
+
+<br>
+
 Akurasi: 0.7821229050279329
               precision    recall  f1-score   support
            0       0.80      0.84      0.82       105
