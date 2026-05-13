@@ -1300,6 +1300,13 @@ Kolom `species` digunakan sebagai target klasifikasi pada metode Random Forest, 
 
 ### Hasil Evaluasi Model Random Forest
 
+<br>
+
+![alt text](image-37.png)
+
+
+<br>
+
 Berdasarkan hasil pengujian menggunakan node Scorer pada KNIME, model Random Forest menghasilkan performa klasifikasi yang sangat baik pada dataset Iris.
 
 #### Accuracy Statistics
