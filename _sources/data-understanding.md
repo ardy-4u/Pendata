@@ -1731,14 +1731,26 @@ print("Slope:", model.coef_[0])
 ---
 ### 13. Kesimpulan
 
-Berdasarkan hasil analisis regresi linier menggunakan metode matriks diperoleh persamaan regresi:
+Berdasarkan hasil analisis regresi linier menggunakan metode matriks diperoleh nilai:
+
+$$
+\beta_0 = 0
+$$
+
+$$
+\beta_1 = 1.076923
+$$
+
+Sehingga persamaan regresi linear yang diperoleh adalah:
 
 $$
 \hat{y} = 1.076923x
 $$
 
-Nilai koefisien regresi \(\beta_1 = 1.076923\) menunjukkan bahwa hubungan antara variabel \(x\) dan \(y\) bersifat positif. Artinya, setiap kenaikan 1 satuan pada variabel \(x\) akan meningkatkan nilai variabel \(y\) sebesar sekitar \(1.076923\).
+Nilai \(\beta_0\) sebagai intercept bernilai 0, yang berarti ketika nilai \(x = 0\), maka nilai prediksi \(y\) juga bernilai 0.
 
-Hasil perhitungan manual menggunakan metode matriks juga sesuai dengan hasil perhitungan menggunakan library `LinearRegression` dari `sklearn`, sehingga dapat disimpulkan bahwa perhitungan telah dilakukan dengan benar.
+Nilai \(\beta_1 = 1.076923\) menunjukkan bahwa hubungan antara variabel \(x\) dan \(y\) bersifat positif. Artinya, setiap kenaikan 1 satuan pada variabel \(x\) akan meningkatkan nilai variabel \(y\) sebesar sekitar \(1.076923\).
 
-Visualisasi data pada GeoGebra menunjukkan bahwa titik-titik data cenderung mengikuti pola garis lurus, sehingga regresi linier cocok digunakan untuk memodelkan hubungan data tersebut.
+Hasil perhitungan manual menggunakan metode matriks sesuai dengan hasil perhitungan menggunakan library `LinearRegression` dari `sklearn`, sehingga dapat disimpulkan bahwa perhitungan telah dilakukan dengan benar.
+
+Visualisasi data pada GeoGebra juga menunjukkan bahwa titik-titik data mengikuti pola linear positif, sehingga regresi linear cocok digunakan untuk memodelkan data tersebut.

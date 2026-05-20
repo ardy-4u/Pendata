@@ -2550,14 +2550,24 @@ X^T Y =
 <hr class="docutils" />
 <section id="id13">
 <h3>13. Kesimpulan<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
-<p>Berdasarkan hasil analisis regresi linier menggunakan metode matriks diperoleh persamaan regresi:</p>
+<p>Berdasarkan hasil analisis regresi linier menggunakan metode matriks diperoleh nilai:</p>
+<div class="math notranslate nohighlight">
+\[
+\beta_0 = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\beta_1 = 1.076923
+\]</div>
+<p>Sehingga persamaan regresi linear yang diperoleh adalah:</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{y} = 1.076923x
 \]</div>
-<p>Nilai koefisien regresi (\beta_1 = 1.076923) menunjukkan bahwa hubungan antara variabel (x) dan (y) bersifat positif. Artinya, setiap kenaikan 1 satuan pada variabel (x) akan meningkatkan nilai variabel (y) sebesar sekitar (1.076923).</p>
-<p>Hasil perhitungan manual menggunakan metode matriks juga sesuai dengan hasil perhitungan menggunakan library <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> dari <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, sehingga dapat disimpulkan bahwa perhitungan telah dilakukan dengan benar.</p>
-<p>Visualisasi data pada GeoGebra menunjukkan bahwa titik-titik data cenderung mengikuti pola garis lurus, sehingga regresi linier cocok digunakan untuk memodelkan hubungan data tersebut.</p>
+<p>Nilai (\beta_0) sebagai intercept bernilai 0, yang berarti ketika nilai (x = 0), maka nilai prediksi (y) juga bernilai 0.</p>
+<p>Nilai (\beta_1 = 1.076923) menunjukkan bahwa hubungan antara variabel (x) dan (y) bersifat positif. Artinya, setiap kenaikan 1 satuan pada variabel (x) akan meningkatkan nilai variabel (y) sebesar sekitar (1.076923).</p>
+<p>Hasil perhitungan manual menggunakan metode matriks sesuai dengan hasil perhitungan menggunakan library <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> dari <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, sehingga dapat disimpulkan bahwa perhitungan telah dilakukan dengan benar.</p>
+<p>Visualisasi data pada GeoGebra juga menunjukkan bahwa titik-titik data mengikuti pola linear positif, sehingga regresi linear cocok digunakan untuk memodelkan data tersebut.</p>
 </section>
 </section>
 </section>
