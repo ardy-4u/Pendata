@@ -1334,3 +1334,411 @@ Berdasarkan hasil pengujian menggunakan node Scorer pada KNIME, model Random For
 ### Kesimpulan
 
 Model Random Forest memperoleh nilai accuracy sebesar 95.6%, yang menunjukkan bahwa model mampu melakukan klasifikasi dataset Iris dengan sangat baik.
+
+---
+
+## Regresi Linear
+
+
+### 1. Pendahuluan
+
+Proyek ini digunakan untuk melakukan analisis data menggunakan regresi linier.  
+Terdapat dua cara yang digunakan, yaitu:
+
+1. Membuat program untuk menghitung koefisien regresi dengan library `sklearn` dari Python.
+2. Menghitung koefisien regresi secara analitik menggunakan rumus matriks:
+
+$$
+\hat{\beta} = (X^T X)^{-1} X^T Y
+$$
+
+Regresi linier digunakan untuk mencari hubungan antara variabel bebas \(x\) dan variabel terikat \(y\).
+
+---
+
+### 2. Data dari GeoGebra
+
+Data titik yang diperoleh dari GeoGebra adalah sebagai berikut:
+
+| No | x | y |
+|----|---|---|
+| 1 | 2 | 2 |
+| 2 | 4 | 3 |
+| 3 | 5 | 5 |
+| 4 | 3 | 4 |
+| 5 | 3 | 3 |
+| 6 | 4 | 5 |
+| 7 | 5 | 6 |
+
+Titik-titik tersebut kemudian diplot pada GeoGebra untuk melihat pola sebaran data.
+
+#### Gambar 1. Plot titik data pada GeoGebra
+![alt text](image-38.png)
+
+---
+
+### 3. Model Regresi Linier
+
+Bentuk umum model regresi linier sederhana adalah:
+
+$$
+y = \beta_0 + \beta_1 x
+$$
+
+dengan:
+- \(\beta_0\) = intersep / konstanta
+- \(\beta_1\) = koefisien regresi / slope
+
+Untuk menyelesaikannya secara analitik, model ini ditulis dalam bentuk matriks:
+
+$$
+\hat{\beta} = (X^T X)^{-1} X^T Y
+$$
+
+dengan:
+
+$$
+\hat{\beta} =
+\begin{bmatrix}
+\beta_0 \\
+\beta_1
+\end{bmatrix}
+$$
+
+---
+
+### 4. Membentuk Matriks \(X\) dan \(Y\)
+
+Karena regresi linier sederhana memiliki satu variabel bebas, maka matriks \(X\) dibentuk dengan kolom pertama bernilai 1 dan kolom kedua berisi nilai \(x\).
+
+$$
+X =
+\begin{bmatrix}
+1 & 2 \\
+1 & 4 \\
+1 & 5 \\
+1 & 3 \\
+1 & 3 \\
+1 & 4 \\
+1 & 5
+\end{bmatrix}
+$$
+
+Sedangkan matriks \(Y\) berisi nilai \(y\):
+
+$$
+Y =
+\begin{bmatrix}
+2 \\
+3 \\
+5 \\
+4 \\
+3 \\
+5 \\
+6
+\end{bmatrix}
+$$
+
+---
+
+### 5. Menghitung \(X^T\)
+
+Transpose dari matriks \(X\) adalah:
+
+$$
+X^T =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+2 & 4 & 5 & 3 & 3 & 4 & 5
+\end{bmatrix}
+$$
+
+---
+
+### 6. Menghitung \(X^T X\)
+
+Perkalian matriks \(X^T X\):
+
+$$
+X^T X =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+2 & 4 & 5 & 3 & 3 & 4 & 5
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 \\
+1 & 4 \\
+1 & 5 \\
+1 & 3 \\
+1 & 3 \\
+1 & 4 \\
+1 & 5
+\end{bmatrix}
+$$
+
+Hasilnya:
+
+$$
+X^T X =
+\begin{bmatrix}
+7 & 26 \\
+26 & 104
+\end{bmatrix}
+$$
+
+Penjelasan singkat:
+- elemen \((1,1)\) adalah jumlah data, yaitu \(7\)
+- elemen \((1,2)\) dan \((2,1)\) adalah \(\sum x = 26\)
+- elemen \((2,2)\) adalah \(\sum x^2 = 104\)
+
+---
+
+### 7. Menghitung \((X^T X)^{-1}\)
+
+Rumus invers matriks \(2 \times 2\):
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}^{-1}
+=
+\frac{1}{ad-bc}
+\begin{bmatrix}
+d & -b \\
+-c & a
+\end{bmatrix}
+$$
+
+Substitusi ke matriks \(X^T X\):
+
+$$
+(X^T X)^{-1}
+=
+\frac{1}{(7 \cdot 104) - (26 \cdot 26)}
+\begin{bmatrix}
+104 & -26 \\
+-26 & 7
+\end{bmatrix}
+$$
+
+$$
+=
+\frac{1}{728 - 676}
+\begin{bmatrix}
+104 & -26 \\
+-26 & 7
+\end{bmatrix}
+$$
+
+$$
+=
+\frac{1}{52}
+\begin{bmatrix}
+104 & -26 \\
+-26 & 7
+\end{bmatrix}
+$$
+
+---
+
+### 8. Menghitung \(X^T Y\)
+
+Perkalian matriks \(X^T Y\):
+
+$$
+X^T Y =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+2 & 4 & 5 & 3 & 3 & 4 & 5
+\end{bmatrix}
+\begin{bmatrix}
+2 \\
+3 \\
+5 \\
+4 \\
+3 \\
+5 \\
+6
+\end{bmatrix}
+$$
+
+Hasilnya:
+
+$$
+X^T Y =
+\begin{bmatrix}
+28 \\
+112
+\end{bmatrix}
+$$
+
+Penjelasan singkat:
+- elemen pertama adalah \(\sum y = 28\)
+- elemen kedua adalah \(\sum xy = 112\)
+
+---
+
+### 9. Menghitung Koefisien Regresi \(\hat{\beta}\)
+
+Sekarang hitung:
+
+$$
+\hat{\beta} = (X^T X)^{-1} X^T Y
+$$
+
+Substitusi nilai yang sudah diperoleh:
+
+$$
+\hat{\beta}
+=
+\frac{1}{52}
+\begin{bmatrix}
+104 & -26 \\
+-26 & 7
+\end{bmatrix}
+\begin{bmatrix}
+28 \\
+112
+\end{bmatrix}
+$$
+
+#### Perkalian baris pertama
+
+$$
+(104 \cdot 28) + (-26 \cdot 112)
+$$
+
+$$
+= 2912 - 2912
+$$
+
+$$
+= 0
+$$
+
+#### Perkalian baris kedua
+
+$$
+(-26 \cdot 28) + (7 \cdot 112)
+$$
+
+$$
+= -728 + 784
+$$
+
+$$
+= 56
+$$
+
+Maka:
+
+$$
+\hat{\beta}
+=
+\frac{1}{52}
+\begin{bmatrix}
+0 \\
+56
+\end{bmatrix}
+$$
+
+$$
+=
+\begin{bmatrix}
+0 \\
+\frac{56}{52}
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+\frac{14}{13}
+\end{bmatrix}
+$$
+
+Jika ditulis dalam bentuk desimal:
+
+$$
+\hat{\beta}
+=
+\begin{bmatrix}
+0 \\
+1.076923
+\end{bmatrix}
+$$
+
+Jadi:
+
+$$
+\beta_0 = 0
+$$
+
+$$
+\beta_1 = 1.076923
+$$
+
+---
+
+### 10. Persamaan Regresi Linier
+
+Dengan demikian, persamaan regresi linier yang diperoleh adalah:
+
+$$
+\hat{y} = 0 + 1.076923x
+$$
+
+atau ditulis lebih sederhana:
+
+$$
+\hat{y} = 1.076923x
+$$
+
+---
+
+### 11. Garis Regresi pada GeoGebra
+
+Untuk menampilkan garis regresi di GeoGebra, masukkan data titik terlebih dahulu, lalu ketik perintah berikut pada kolom input:
+
+$$
+\texttt{FitLine(\{A,B,C,D,E,F,G\})}
+$$
+
+Setelah itu GeoGebra akan menampilkan garis regresi secara otomatis.
+
+#### Gambar 2. Garis regresi pada GeoGebra
+![alt text](image-39.png)
+
+---
+
+### 12. Verifikasi dengan Python dan `sklearn`
+
+Kode Python berikut digunakan untuk memverifikasi hasil perhitungan manual:
+
+```python
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+X = np.array([2, 4, 5, 3, 3, 4, 5]).reshape(-1, 1)
+Y = np.array([2, 3, 5, 4, 3, 5, 6])
+
+model = LinearRegression()
+model.fit(X, Y)
+
+print("Intercept:", model.intercept_)
+print("Slope:", model.coef_[0])
+
+```
+---
+### 13. Kesimpulan
+
+Berdasarkan hasil analisis regresi linier menggunakan metode matriks diperoleh persamaan regresi:
+
+$$
+\hat{y} = 1.076923x
+$$
+
+Nilai koefisien regresi \(\beta_1 = 1.076923\) menunjukkan bahwa hubungan antara variabel \(x\) dan \(y\) bersifat positif. Artinya, setiap kenaikan 1 satuan pada variabel \(x\) akan meningkatkan nilai variabel \(y\) sebesar sekitar \(1.076923\).
+
+Hasil perhitungan manual menggunakan metode matriks juga sesuai dengan hasil perhitungan menggunakan library `LinearRegression` dari `sklearn`, sehingga dapat disimpulkan bahwa perhitungan telah dilakukan dengan benar.
+
+Visualisasi data pada GeoGebra menunjukkan bahwa titik-titik data cenderung mengikuti pola garis lurus, sehingga regresi linier cocok digunakan untuk memodelkan hubungan data tersebut.
