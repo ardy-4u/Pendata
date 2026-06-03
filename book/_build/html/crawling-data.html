@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Crawling Data NO2 (A) &#8212; Pendata</title>
+    <title>Crawling Data NO₂ (A) &#8212; Pendata</title>
   
   
   
@@ -304,7 +304,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -315,11 +317,24 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Crawling Data NO2 (A)</h1>
+    <h1>Crawling Data NO₂ (A)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-kadar-no2-di-daerah-bali">Peramalan Kadar NO₂ di Daerah Bali</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">Pengumpulan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengambilan-data-kadar-no2-di-kabupaten-bangkalan">Pengambilan Data Kadar NO₂ di Kabupaten Bangkalan</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -330,7 +345,190 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="crawling-data-no2-a">
-<h1>Crawling Data NO2 (A)<a class="headerlink" href="#crawling-data-no2-a" title="Permalink to this heading">#</a></h1>
+<h1>Crawling Data NO₂ (A)<a class="headerlink" href="#crawling-data-no2-a" title="Permalink to this heading">#</a></h1>
+<section id="peramalan-kadar-no2-di-daerah-bali">
+<h2>Peramalan Kadar NO₂ di Daerah Bali<a class="headerlink" href="#peramalan-kadar-no2-di-daerah-bali" title="Permalink to this heading">#</a></h2>
+<section id="latar-belakang">
+<h3>Latar Belakang<a class="headerlink" href="#latar-belakang" title="Permalink to this heading">#</a></h3>
+<p>Nitrogen Dioksida (NO₂) merupakan salah satu polutan udara utama yang berasal dari aktivitas pembakaran bahan bakar fosil, seperti kendaraan bermotor, industri, dan pembangkit listrik. Konsentrasi NO₂ yang tinggi dapat berdampak negatif terhadap kesehatan manusia, terutama pada sistem pernapasan, serta berkontribusi terhadap pembentukan hujan asam dan penurunan kualitas lingkungan.</p>
+<p>Provinsi Bali merupakan salah satu destinasi wisata utama di Indonesia yang memiliki aktivitas transportasi dan pembangunan yang terus meningkat. Peningkatan aktivitas tersebut berpotensi memengaruhi kualitas udara, termasuk kadar NO₂ di atmosfer. Oleh karena itu, pemantauan dan analisis kadar NO₂ secara berkala sangat penting untuk mengetahui kondisi kualitas udara serta mendukung pengambilan kebijakan lingkungan yang tepat.</p>
+<p>Dalam proyek ini dilakukan proses crawling data kadar NO₂ menggunakan data penginderaan jauh (remote sensing) yang diperoleh dari satelit Sentinel-5P melalui platform Google Earth Engine (GEE). Data yang berhasil dikumpulkan kemudian digunakan untuk membangun model peramalan (forecasting) kadar NO₂ di wilayah Bali. Hasil peramalan diharapkan dapat memberikan gambaran tren kualitas udara pada periode mendatang dan menjadi dasar dalam upaya pengendalian pencemaran udara.</p>
+</section>
+<section id="pengumpulan-data">
+<h3>Pengumpulan Data<a class="headerlink" href="#pengumpulan-data" title="Permalink to this heading">#</a></h3>
+<p>Pertama kita akan mengumpulkan data Time Series Harian kadar NO2 di daerah Bangkalan. Pengumpulan data dari sumber website <a class="reference external" href="https://dataspace.copernicus.eu/">https://dataspace.copernicus.eu/</a> , buat akun terlebih dahulu di website copernicus tersebut.</p>
+<p>Dokumentasi cara pengambilan data di <a class="reference external" href="https://documentation.dataspace.copernicus.eu/notebook-samples/openeo/NO2Covid.html">https://documentation.dataspace.copernicus.eu/notebook-samples/openeo/NO2Covid.html</a> .</p>
+<p>Untuk menuliskan code Python untuk mengambil data, silahkan kunjungi halaman <a class="reference external" href="https://dataspace.copernicus.eu/analyse/jupyterlab">https://dataspace.copernicus.eu/analyse/jupyterlab</a>, klik Access JupyterLab, scroll kebawah sedikit …, lalu pilih Python 3 (ipykernel)</p>
+<br>
+<p><img alt="alt text" src="_images/image-40.png" /></p>
+<br>
+</section>
+<section id="pengambilan-data-kadar-no2-di-kabupaten-bangkalan">
+<h3>Pengambilan Data Kadar NO₂ di Kabupaten Bangkalan<a class="headerlink" href="#pengambilan-data-kadar-no2-di-kabupaten-bangkalan" title="Permalink to this heading">#</a></h3>
+<p>Pada tahap ini, kita akan mengambil data kadar Nitrogen Dioksida (NO₂) di wilayah Kabupaten Bangkalan menggunakan platform OpenEO yang terhubung dengan Copernicus Data Space Ecosystem. Data akan diambil untuk rentang waktu <strong>tanggal … sampai …</strong>.</p>
+<p>Sebelum melakukan pengambilan data, instal terlebih dahulu library <strong>OpenEO</strong> dengan menjalankan perintah berikut:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">openeo</span>
+</pre></div>
+</div>
+<p>Setelah proses instalasi selesai, hubungkan notebook dengan layanan OpenEO menggunakan kode berikut:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">openeo</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">openeo</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="s2">&quot;openeo.dataspace.copernicus.eu&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">authenticate_oidc</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Saat baris kode di atas dijalankan, sistem akan meminta proses autentikasi akun Copernicus. Output yang muncul kurang lebih sebagai berikut:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Visit (link authentikasi) 📋 to authenticate.
+✅ Authorized successfully
+Authenticated using device code flow.
+</pre></div>
+</div>
+<p>Klik tautan autentikasi yang diberikan pada output, kemudian login menggunakan akun <strong>Copernicus Data Space Ecosystem</strong> yang telah dimiliki. Setelah proses login berhasil, notebook akan terhubung dengan server OpenEO dan siap digunakan untuk mengakses data satelit Sentinel-5P yang berisi informasi konsentrasi NO₂.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aoi</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">114.4329954</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0958241</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4719987</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0938984</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4954</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1016227</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5129602</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1363793</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5129701</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1498995</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5461215</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1344633</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5890344</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1229031</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5929401</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1325608</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.6514120</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1325370</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.6806547</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1460427</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.7450880</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1693644</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.7918741</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1771050</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.8386260</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1847602</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.8620181</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1866970</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.9010012</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1867007</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.9750619</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1810843</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0101359</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1617491</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0472159</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1305869</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0939755</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0901812</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1466340</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0650178</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1739543</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0610959</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1973522</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0610959</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2554956</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0845689</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2825583</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0981569</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.3900509</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1422332</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.4310550</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1556912</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.4602053</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1769729</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.4913145</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1982366</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5245024</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.2232851</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5518702</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.2367523</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5867929</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.2715369</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6022655</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.2947181</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6157849</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3159628</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6311619</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3352950</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6626304</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3429284</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6804183</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3505814</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6918958</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3699088</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6951947</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3950723</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6928549</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4105427</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6810725</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4317336</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6660615</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4528477</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6315238</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4643548</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.6083726</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4951782</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5829956</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5183125</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5497597</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5048239</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5204867</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5048259</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5088122</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5125342</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.5089315</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5337330</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.4973673</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5568667</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.4641540</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5568645</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.4486684</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5703634</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.3980190</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5761500</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.3570193</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5800014</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2712710</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6590420</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2595810</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6995215</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2576360</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7110877</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2225448</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7207271</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2342482</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7303658</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2342594</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7515718</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2225614</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7592817</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2225614</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7727719</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2303612</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8016777</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.2186615</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8209471</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1952120</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8363161</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1639484</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8478025</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1249462</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8458545</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0918536</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8382062</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0840667</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8247363</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0879602</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8131708</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1015861</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.8092943</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1093946</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7996749</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1211097</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7881348</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1406253</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7804462</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1543051</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7766193</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1582132</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7612089</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1484630</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7496452</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1523611</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7322983</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1562576</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6995304</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.1328563</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6706160</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0958089</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6397733</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0704583</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6012154</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">115.0236551</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5549413</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.9222537</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4758946</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.8676714</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4450635</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.7935776</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4180189</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.7136349</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4025886</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.6453851</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3987272</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.6102814</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.4045110</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5693310</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3967940</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5283882</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3485684</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.5010906</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.3041941</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4777337</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.2579146</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4445630</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.2154441</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4386975</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1864829</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4523826</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1652850</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4386859</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1343570</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4328424</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.1092685</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">114.4329954</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0958241</span><span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">s5post</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">load_collection</span><span class="p">(</span>
+    <span class="s2">&quot;SENTINEL_5P_L2&quot;</span><span class="p">,</span>
+    <span class="n">temporal_extent</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2026-05-01&quot;</span><span class="p">],</span>
+    <span class="n">spatial_extent</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;west&quot;</span><span class="p">:</span> <span class="mf">114.4328424</span><span class="p">,</span>
+        <span class="s2">&quot;south&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">8.8478025</span><span class="p">,</span>
+        <span class="s2">&quot;east&quot;</span><span class="p">:</span> <span class="mf">115.6951947</span><span class="p">,</span>
+        <span class="s2">&quot;north&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">8.0610959</span>
+    <span class="p">},</span>
+    <span class="n">bands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">s5p_no2_daily</span> <span class="o">=</span> <span class="n">s5post</span><span class="o">.</span><span class="n">aggregate_temporal_period</span><span class="p">(</span>
+    <span class="n">reducer</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+    <span class="n">period</span><span class="o">=</span><span class="s2">&quot;day&quot;</span>
+<span class="p">)</span>
+
+<span class="n">s5p_no2_aoi</span> <span class="o">=</span> <span class="n">s5p_no2_daily</span><span class="o">.</span><span class="n">aggregate_spatial</span><span class="p">(</span>
+    <span class="n">reducer</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+    <span class="n">geometries</span><span class="o">=</span><span class="n">aoi</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Code diatas memerlukan titik koordinasi area yang akan diambil data
+-nya, untuk mengambil titik koordinasi kaian kunjungi webiste <a class="reference external" href="https://geojson.io/#map=14.8/-7.04732/112.69463">https://geojson.io/#map=14.8/-7.04732/112.69463</a> . Didalam website tersebut kalian akan memilih daerah dengan cara memberi shape kotak didaerah yang ingin kalian ambil datanya.</p>
+<br>
+<p><img alt="alt text" src="_images/image-41.png" /></p>
+<br>
+<p>Di panel sebelah kanan terdapat data JSON yang berupa koordinat daerah yang kalian pilih, kalian salin terus sesuaikan dengan code diatas di bagian variabel “aoi” dan spatial_extent.</p>
+<p>Lalu kalian tambahkan baris code dibawah untuk memulai pengambilan data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">s5post</span><span class="o">.</span><span class="n">execute_batch</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;NO2 in Bali&quot;</span><span class="p">,</span> <span class="n">outputfile</span><span class="o">=</span><span class="s2">&quot;NO2Bali.nc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-teks notranslate"><div class="highlight"><pre><span></span>Tunggu proses pengambilan data, output proses seperti berikut:
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -369,6 +567,26 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-kadar-no2-di-daerah-bali">Peramalan Kadar NO₂ di Daerah Bali</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">Pengumpulan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengambilan-data-kadar-no2-di-kabupaten-bangkalan">Pengambilan Data Kadar NO₂ di Kabupaten Bangkalan</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
