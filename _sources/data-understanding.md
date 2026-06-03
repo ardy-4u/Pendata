@@ -1754,3 +1754,5 @@ Nilai \(\beta_1 = 1.076923\) menunjukkan bahwa hubungan antara variabel \(x\) da
 Hasil perhitungan manual menggunakan metode matriks sesuai dengan hasil perhitungan menggunakan library `LinearRegression` dari `sklearn`, sehingga dapat disimpulkan bahwa perhitungan telah dilakukan dengan benar.
 
 Visualisasi data pada GeoGebra juga menunjukkan bahwa titik-titik data mengikuti pola linear positif, sehingga regresi linear cocok digunakan untuk memodelkan data tersebut.
+
+---
