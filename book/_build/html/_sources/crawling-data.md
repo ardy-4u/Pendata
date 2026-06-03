@@ -1,4 +1,4 @@
-# Crawling Data NO₂ (A)
+# Crawling Data
 
 ## Peramalan Kadar NO₂ di Daerah Bali
 
