@@ -3,3 +3,4 @@ root: intro
 chapters:
   - file: data-understanding
   - file: crawling-data
+  - file: analisa-data
