@@ -305,7 +305,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -321,6 +323,23 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisa-prediksi-tentang-apa">1. Analisa Prediksi Tentang Apa?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-bentuk-data-trainingnya-input-dan-output">2. Bagaimana Bentuk Data Trainingnya (Input dan Output)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-x">Input (X)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-y">Output (y)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-lag">3. Apa Itu Lag?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jelaskan-proses-analisis-yang-dilakukan">4. Jelaskan Proses Analisis yang Dilakukan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-analisis">Hasil Analisis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -332,6 +351,114 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analisa-data">
 <h1>Analisa Data<a class="headerlink" href="#analisa-data" title="Permalink to this heading">#</a></h1>
+<section id="analisa-prediksi-tentang-apa">
+<h2>1. Analisa Prediksi Tentang Apa?<a class="headerlink" href="#analisa-prediksi-tentang-apa" title="Permalink to this heading">#</a></h2>
+<p>Analisis prediksi dilakukan untuk memperkirakan <strong>permintaan listrik (Demand)</strong> di wilayah Victoria, Australia. Prediksi dilakukan menggunakan metode <em>time series forecasting</em> dengan memanfaatkan data historis permintaan listrik serta data suhu (<em>Temperature</em>) sebagai variabel eksternal (<em>exogenous variable</em>).</p>
+<p>Model yang digunakan adalah <strong>LightGBM Regressor (LGBMRegressor)</strong> yang diimplementasikan melalui <strong>ForecasterRecursive</strong> dari library Skforecast.</p>
+</section>
+<hr class="docutils" />
+<section id="bagaimana-bentuk-data-trainingnya-input-dan-output">
+<h2>2. Bagaimana Bentuk Data Trainingnya (Input dan Output)?<a class="headerlink" href="#bagaimana-bentuk-data-trainingnya-input-dan-output" title="Permalink to this heading">#</a></h2>
+<section id="input-x">
+<h3>Input (X)<a class="headerlink" href="#input-x" title="Permalink to this heading">#</a></h3>
+<p>Data masukan (<em>input features</em>) terdiri dari:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_1</span></code> : nilai Demand 1 hari sebelumnya</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_2</span></code> : nilai Demand 2 hari sebelumnya</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_3</span></code> : nilai Demand 3 hari sebelumnya</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_4</span></code> : nilai Demand 4 hari sebelumnya</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_5</span></code> : nilai Demand 5 hari sebelumnya</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_6</span></code> : nilai Demand 6 hari sebelumnya</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_7</span></code> : nilai Demand 7 hari sebelumnya</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Temperature</span></code> : suhu rata-rata harian</p></li>
+</ul>
+</section>
+<section id="output-y">
+<h3>Output (y)<a class="headerlink" href="#output-y" title="Permalink to this heading">#</a></h3>
+<p>Data keluaran (<em>target variable</em>) adalah:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Demand</span></code> pada hari yang akan diprediksi.</p></li>
+</ul>
+<p>Dengan demikian, model mempelajari hubungan antara nilai permintaan listrik pada beberapa hari sebelumnya dan suhu terhadap permintaan listrik pada hari berikutnya.</p>
+<br>
+<p><img alt="alt text" src="_images/image-48.png" /></p>
+<br>
+</section>
+</section>
+<hr class="docutils" />
+<section id="apa-itu-lag">
+<h2>3. Apa Itu Lag?<a class="headerlink" href="#apa-itu-lag" title="Permalink to this heading">#</a></h2>
+<p><em>Lag</em> adalah nilai historis dari suatu variabel pada periode sebelumnya yang digunakan sebagai fitur dalam proses prediksi.</p>
+<p>Contoh:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_1</span></code> menunjukkan nilai Demand satu hari sebelumnya.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_2</span></code> menunjukkan nilai Demand dua hari sebelumnya.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag_7</span></code> menunjukkan nilai Demand tujuh hari sebelumnya.</p></li>
+</ul>
+<p>Penggunaan lag bertujuan untuk membantu model mengenali pola dan ketergantungan waktu (<em>temporal dependency</em>) pada data deret waktu (<em>time series</em>).</p>
+</section>
+<hr class="docutils" />
+<section id="jelaskan-proses-analisis-yang-dilakukan">
+<h2>4. Jelaskan Proses Analisis yang Dilakukan<a class="headerlink" href="#jelaskan-proses-analisis-yang-dilakukan" title="Permalink to this heading">#</a></h2>
+<p>Tahapan analisis yang dilakukan adalah sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Mengambil dataset <strong>vic_electricity</strong> yang berisi data permintaan listrik dan suhu di Victoria, Australia.</p></li>
+<li><p>Melakukan agregasi data menjadi frekuensi harian (<em>daily frequency</em>).</p></li>
+<li><p>Membagi data menjadi data latih (<em>training set</em>) dan data uji (<em>testing set</em>).</p></li>
+<li><p>Membuat fitur lag sebanyak 7 periode (<code class="docutils literal notranslate"><span class="pre">lag_1</span></code> sampai <code class="docutils literal notranslate"><span class="pre">lag_7</span></code>).</p></li>
+<li><p>Menambahkan variabel suhu (<em>Temperature</em>) sebagai variabel eksternal.</p></li>
+<li><p>Melatih model menggunakan <strong>LGBMRegressor</strong> dengan metode <strong>ForecasterRecursive</strong>.</p></li>
+<li><p>Menghitung <strong>Feature Importance</strong> untuk mengetahui fitur yang paling berpengaruh terhadap prediksi.</p></li>
+</ol>
+<br>
+<p><img alt="alt text" src="_images/image-49.png" /></p>
+<br>
+<ol class="arabic simple" start="8">
+<li><p>Melakukan analisis <strong>SHAP (SHapley Additive exPlanations)</strong> untuk menjelaskan kontribusi masing-masing fitur terhadap hasil prediksi.</p></li>
+</ol>
+<br>
+<p><img alt="alt text" src="_images/image-50.png" /></p>
+<br>
+<ol class="arabic simple" start="9">
+<li><p>Membuat <strong>SHAP Dependence Plot</strong> untuk melihat hubungan antara fitur dan nilai prediksi.</p></li>
+</ol>
+<br>
+<p><img alt="alt text" src="_images/image-51.png" /></p>
+<br>
+<ol class="arabic simple" start="10">
+<li><p>Menghitung <strong>Permutation Importance</strong> sebagai metode alternatif untuk mengukur pentingnya fitur.</p></li>
+</ol>
+<br>
+<p><img alt="alt text" src="_images/image-52.png" /></p>
+<br>
+<ol class="arabic simple" start="11">
+<li><p>Membuat <strong>Partial Dependence Plot (PDP)</strong> untuk memahami pengaruh perubahan suatu fitur terhadap hasil prediksi.</p></li>
+</ol>
+<br>
+<p><img alt="alt text" src="_images/image-53.png" /></p>
+<br>
+<ol class="arabic simple" start="12">
+<li><p>Melakukan prediksi permintaan listrik untuk beberapa periode ke depan.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="hasil-analisis">
+<h2>Hasil Analisis<a class="headerlink" href="#hasil-analisis" title="Permalink to this heading">#</a></h2>
+<p>Berdasarkan hasil <strong>Feature Importance</strong>, <strong>Permutation Importance</strong>, dan <strong>SHAP Analysis</strong>, diperoleh beberapa temuan sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Fitur <strong>lag_1</strong> merupakan fitur yang memiliki pengaruh paling besar terhadap hasil prediksi.</p></li>
+<li><p>Variabel <strong>Temperature</strong> menjadi faktor kedua yang paling berpengaruh dalam menentukan nilai permintaan listrik.</p></li>
+<li><p>Fitur <strong>lag_7</strong> juga memberikan kontribusi yang cukup signifikan terhadap model.</p></li>
+<li><p>Nilai permintaan listrik pada hari sebelumnya memiliki hubungan positif terhadap hasil prediksi permintaan listrik pada hari berikutnya.</p></li>
+<li><p>Hubungan antara suhu dan permintaan listrik bersifat non-linier, yang terlihat dari grafik SHAP Dependence Plot dan Partial Dependence Plot.</p></li>
+<li><p>Model mampu memanfaatkan informasi historis serta faktor suhu untuk menghasilkan prediksi permintaan listrik yang lebih akurat.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h2>
+<p>Model <em>time series forecasting</em> yang dibangun menggunakan <strong>LGBMRegressor</strong> dan <strong>ForecasterRecursive</strong> berhasil memprediksi permintaan listrik berdasarkan data historis dan suhu. Hasil analisis menunjukkan bahwa nilai permintaan listrik pada periode sebelumnya (<em>lag features</em>) merupakan faktor utama yang memengaruhi prediksi, sementara suhu berperan sebagai faktor eksternal yang turut memberikan kontribusi signifikan terhadap hasil prediksi.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -379,6 +506,30 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisa-prediksi-tentang-apa">1. Analisa Prediksi Tentang Apa?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-bentuk-data-trainingnya-input-dan-output">2. Bagaimana Bentuk Data Trainingnya (Input dan Output)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-x">Input (X)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-y">Output (y)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-lag">3. Apa Itu Lag?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jelaskan-proses-analisis-yang-dilakukan">4. Jelaskan Proses Analisis yang Dilakukan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-analisis">Hasil Analisis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
